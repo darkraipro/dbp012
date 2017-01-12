@@ -53,7 +53,7 @@ public final class DBUtil {
 	}
 
 	public static boolean checkDatabaseExists(String database) {
-		// Nur für Demozwecke!
+
 		boolean exists = false;
 
 		try (Connection connection = getConnection(database)) {

@@ -40,7 +40,6 @@ public final class DBUtil {
 	}
 
 	public static boolean checkDatabaseExistsExternal(String database) {
-		// Nur für Demozwecke!
 		boolean exists = false;
 
 		try (Connection connection = getExternalConnection(database)) {

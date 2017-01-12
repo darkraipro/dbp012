@@ -30,10 +30,10 @@ public final class DBUtil {
 		Properties properties = new Properties();
 		properties.setProperty("securityMechanism",
 				Integer.toString(com.ibm.db2.jcc.DB2BaseDataSource.USER_ONLY_SECURITY));
-		properties.setProperty("user", "<DBPXXX>");
-		properties.setProperty("password", "<Passwort>");
+		properties.setProperty("user", "DBP012");
+		properties.setProperty("password", "nie3quui");
 
-		final String url = "jdbc:db2://<Rechnername>.is.inf.uni-due.de:50005/" + database + ":currentSchema=<DB-Schema>;";
+		final String url = "jdbc:db2://dione.is.inf.uni-due.de:50005/" + database + ":currentSchema=dbp012;";
 		System.out.println(url);
 		Connection connection = DriverManager.getConnection(url, properties);
 		return connection;

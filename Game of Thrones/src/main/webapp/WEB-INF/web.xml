@@ -47,26 +47,124 @@
 		<servlet-name>freemarker</servlet-name>
 		<url-pattern>*.ftl</url-pattern>
 	</servlet-mapping>
-
+	<!-- ###################################################### -->
+	<!-- ################### PROJEKT ANFANG ################### -->
+	<!-- ###################################################### -->
+	
+	<!-- Startseite -->
 	<servlet>
-		<servlet-name>hello_servlet</servlet-name>
-		<servlet-class>de.unidue.inf.is.HelloServlet</servlet-class>
+		<servlet-name>startseite_servlet</servlet-name>
+		<servlet-class>de.unidue.inf.is.StartseiteServlet</servlet-class>
 	</servlet>
-
+	
 	<servlet-mapping>
-		<servlet-name>hello_servlet</servlet-name>
-		<url-pattern>/hello</url-pattern>
+		<servlet-name>startseite_servlet</servlet-name>
+		<url-pattern>/start</url-pattern>
+	</servlet-mapping>
+	
+	<!-- Detailseiten -->
+	<servlet>
+		<servlet-name>detail_person_servlet</servlet-name>
+		<servlet-class>de.unidue.inf.is.DetailPersonServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>detail_person_servlet</servlet-name>
+		<url-pattern>/detailperson</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>
-		<servlet-name>got_servlet</servlet-name>
-		<servlet-class>de.unidue.inf.is.GoTServlet</servlet-class>
+		<servlet-name>detail_tier_servlet</servlet-name>
+		<servlet-class>de.unidue.inf.is.DetailTierServlet</servlet-class>
 	</servlet>
-
+	
 	<servlet-mapping>
-		<servlet-name>got_servlet</servlet-name>
-		<url-pattern>/got</url-pattern>
+		<servlet-name>detail_tier_servlet</servlet-name>
+		<url-pattern>/detailtier</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>detail_haus_servlet</servlet-name>
+		<servlet-class>de.unidue.inf.is.DetailHausServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>detail_haus_servlet</servlet-name>
+		<url-pattern>/detailhaus</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>detail_ort_servlet</servlet-name>
+		<servlet-class>de.unidue.inf.is.DetailOrtServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>detail_ort_servlet</servlet-name>
+		<url-pattern>/detailort</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>detail_episode_servlet</servlet-name>
+		<servlet-class>de.unidue.inf.is.DetailEpisodeServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>detail_episode_servlet</servlet-name>
+		<url-pattern>/detailepisode</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>detail_staffel_servlet</servlet-name>
+		<servlet-class>de.unidue.inf.is.DetailStaffelServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>detail_staffel_servlet</servlet-name>
+		<url-pattern>/detailstaffel</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>detail_playlist_servlet</servlet-name>
+		<servlet-class>de.unidue.inf.is.DetailPlaylistServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>detail_playlist_servlet</servlet-name>
+		<url-pattern>/detailplaylist</url-pattern>
+	</servlet-mapping>
+	
+	<!-- Listen -->
+	
+	<servlet>
+		<servlet-name>liste_figuren_servlet</servlet-name>
+		<servlet-class>de.unidue.inf.is.ListeFigurenServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>liste_figuren_servlet</servlet-name>
+		<url-pattern>/listefiguren</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>liste_haeuser_servlet</servlet-name>
+		<servlet-class>de.unidue.inf.is.ListeHaeuserServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>liste_haeuser_servlet</servlet-name>
+		<url-pattern>/listehaeuser</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>liste_staffeln_servlet</servlet-name>
+		<servlet-class>de.unidue.inf.is.ListeStaffelnServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>liste_staffeln_servlet</servlet-name>
+		<url-pattern>/listestaffeln</url-pattern>
+	</servlet-mapping>
+	<!-- ###################################################### -->
+	<!-- ################### PROJEKT ENDE ##################### -->
+	<!-- ###################################################### -->
 
 	<!-- Prevent the visiting of MVC Views from outside the servlet container. 
 		RequestDispatcher.forward/include should and will still work. Removing this 

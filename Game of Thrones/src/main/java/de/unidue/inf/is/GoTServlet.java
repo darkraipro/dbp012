@@ -20,7 +20,7 @@ public final class GoTServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		final String databaseToCheck = "test";
+		final String databaseToCheck = "dbp012";
 		boolean databaseExists = DBUtil.checkDatabaseExists(databaseToCheck);
 
 		request.setAttribute("db2name", databaseToCheck);

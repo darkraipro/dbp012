@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import de.unidue.inf.is.domain.User;
+import de.unidue.inf.is.utils.DBUtil;
 
 
 
@@ -26,6 +27,17 @@ public final class StartseiteServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Put the user list in request and let freemarker paint it.
+    	final String databaseToCheck = "dbp012";
+		boolean databaseExists = DBUtil.checkDatabaseExists(databaseToCheck);
+
+		request.setAttribute("db2name", databaseToCheck);
+
+		if (databaseExists) {
+			request.setAttribute("db2exists", "vorhanden! Supi!");
+		}
+		else {
+			request.setAttribute("db2exists", "nicht vorhanden :-(");
+		}
         request.getRequestDispatcher("startseite.ftl").forward(request, response);
     }
 

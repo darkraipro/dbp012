@@ -36,7 +36,9 @@ body{
 			<img width="100%" src="images/header.jpg" class="centerBlock" />
 		</div>
 		<div id="site">
-		
+		<p>
+			Die Datenbank "${db2name}" ist ${db2exists}
+		</p>
 		</div>
 		<!-- <a href="/detailperson">lol</a> -->
 		<h1>Figuren:</h1><br />

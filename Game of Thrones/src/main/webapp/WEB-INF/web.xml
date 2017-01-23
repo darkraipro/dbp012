@@ -57,9 +57,20 @@
 		<servlet-class>de.unidue.inf.is.StartseiteServlet</servlet-class>
 	</servlet>
 	
+	
 	<servlet-mapping>
 		<servlet-name>startseite_servlet</servlet-name>
 		<url-pattern>/start</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>hello_servlet</servlet-name>
+		<servlet-class>de.unidue.inf.is.HelloServlet</servlet-class>
+	</servlet>
+	
+	
+	<servlet-mapping>
+		<servlet-name>hello_servlet</servlet-name>
+		<url-pattern>/hello</url-pattern>
 	</servlet-mapping>
 	
 	<!-- Detailseiten -->

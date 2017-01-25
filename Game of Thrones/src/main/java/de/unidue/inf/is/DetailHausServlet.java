@@ -30,16 +30,16 @@ public final class DetailHausServlet extends HttpServlet {
         name=sitz="";
         List<String> listeBesitz = new ArrayList<>();
         
+      //TEST
+        name="Kein Name";
+        sitz="Kein Sitz";
+        
         //SQL abfragen
         name = request.getParameter("name");
         //haus = sql where name=name
         //burg = sql where name=name
         
-        //TEST
-        name="juhu";
-        sitz="lolasd";
-        listeBesitz.add("asd");
-        listeBesitz.add("asd2");
+        
         
         
         //freemarker variablen setzen

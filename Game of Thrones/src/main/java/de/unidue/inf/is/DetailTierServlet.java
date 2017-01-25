@@ -29,14 +29,16 @@ public final class DetailTierServlet extends HttpServlet {
     	String name, herkunft, besitzer;
     	name=herkunft=besitzer="";
         
+    	//TEST
+        herkunft="Keine Herkunft";
+        besitzer="Kein Besitzer";
+        
         //SQL abfragen
         name = request.getParameter("name");
         //haus = sql where name=name
         //burg = sql where name=name
         
-        //TEST
-        herkunft="niemanslant";
-        besitzer="Detlef die Soost";
+        
         
         
         //freemarker variablen setzen

@@ -33,19 +33,17 @@ public final class DetailOrtServlet extends HttpServlet {
         List<String> listeHerkunft = new ArrayList<>();
         List<String> listeHandlung = new ArrayList<>();
         
+      //TEST
+        name="Kein Name";
+        haus="Kein Haus";
+        burg="Keine Burg";
+        
         //SQL abfragen
         name = request.getParameter("name");
         //haus = sql where name=name
         //burg = sql where name=name
         
-        //TEST
-        name="John";
-        haus="Schnee";
-        burg="burgi";
-        listeHerkunft.add("Peter");
-        listeHerkunft.add("Inge");
-        listeHandlung.add("Ep2");
-        listeHandlung.add("Ep3");
+        
         
         //freemarker variablen setzen
         request.setAttribute("ortname", name);

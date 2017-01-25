@@ -34,9 +34,6 @@ public final class DetailStaffelServlet extends HttpServlet {
         //haus = sql where name=name
         //burg = sql where name=name
         
-        //TEST
-        listeEpisoden.add("ep1");
-        listeEpisoden.add("ep2 mag ich nicht");
         
         
         //freemarker variablen setzen

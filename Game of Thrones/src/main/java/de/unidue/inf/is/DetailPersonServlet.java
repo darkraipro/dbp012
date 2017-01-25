@@ -31,20 +31,18 @@ public final class DetailPersonServlet extends HttpServlet {
         name=herkunft=biographie=haus="";
         List<Beziehung> listeBeziehungen = new ArrayList<>();
         List<String> listeBesitzer = new ArrayList<>();
+       
+      //TEST
+        herkunft="Keine Herkunft";
+        biographie="Keine Bio";
+        haus="Kein Haus";
         
         //SQL abfragen
         name = request.getParameter("name");
         //haus = sql where name=name
         //burg = sql where name=name
         
-        //TEST
-        herkunft="alpen";
-        biographie="tod";
-        haus="simpsons";
-        listeBeziehungen.add(new Beziehung("mit mama","liebe"));
-        listeBeziehungen.add(new Beziehung("mit papa","im krieg"));
-        listeBesitzer.add("struppi");
-        listeBesitzer.add("tim");
+        
         
         
         //freemarker variablen setzen

@@ -34,9 +34,7 @@ public final class DetailPlaylistServlet extends HttpServlet {
         //haus = sql where name=name
         //burg = sql where name=name
         
-        //TEST
-        listeEpisoden.add("ep1");
-        listeEpisoden.add("vielleicht auch ep2");
+        
         
         
         //freemarker variablen setzen

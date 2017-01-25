@@ -39,18 +39,19 @@ body{
 		
 		</div>
 		<h1>Liste aller Häuser:</h1><br />
-	</div>
-	<div>
-	<table class="datatable">
+		<table class="datatable">
     <tr>
         <th>Name</th>  <th>Motto</th>	<th>Sitz</th>
     </tr>
     <#list haeuser as haus>
     <tr>
-        <td>${haus.name}</td> <td>${haus.words}</td>	<td>${haus.seat}</td>
+        <td><a href="detailhaus?name=${haus.name}">${haus.name}</td> <td>   ${haus.words}</td>	<td>${haus.seat}</td>
     </tr>
     </#list>
   </table>
+	</div>
+	<div>
+	
 	</div>
 </body>
 </html>

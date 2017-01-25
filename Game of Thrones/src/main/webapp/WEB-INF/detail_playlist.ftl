@@ -39,9 +39,9 @@ body{
 		
 		</div>
 		<h1>Playlist:</h1><br />
-		<p>Name:</p><br />
+		<p>Name: ${playlistname}</p><br />
 		<p>Episoden:</p>
-		
+			<#list playlistepisoden as pe><a href="detailepisode?titel=${pe}">${pe}</a><br /></#list><br />
 		
 	</div>
 	

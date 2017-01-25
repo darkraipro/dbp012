@@ -25,8 +25,27 @@ public final class DetailTierServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Put the user list in request and let freemarker paint it.
-        request.getRequestDispatcher("detail_playlist.ftl").forward(request, response);
+    	//Variablen init
+    	String name, herkunft, besitzer;
+    	name=herkunft=besitzer="";
+        
+        //SQL abfragen
+        name = request.getParameter("name");
+        //haus = sql where name=name
+        //burg = sql where name=name
+        
+        //TEST
+        herkunft="niemanslant";
+        besitzer="Detlef die Soost";
+        
+        
+        //freemarker variablen setzen
+        request.setAttribute("tiername", name);
+        request.setAttribute("tierherkunft", herkunft);
+        request.setAttribute("tierbesitzer", besitzer);
+        
+    	// Put the user list in request and let freemarker paint it.
+        request.getRequestDispatcher("detail_tier.ftl").forward(request, response);
     }
 
 

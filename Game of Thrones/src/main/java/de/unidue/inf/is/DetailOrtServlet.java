@@ -25,6 +25,35 @@ public final class DetailOrtServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        
+        
+        //Variablen init
+        String name, haus, burg;
+        name=haus=burg="";
+        List<String> listeHerkunft = new ArrayList<>();
+        List<String> listeHandlung = new ArrayList<>();
+        
+        //SQL abfragen
+        name = request.getParameter("name");
+        //haus = sql where name=name
+        //burg = sql where name=name
+        
+        //TEST
+        name="John";
+        haus="Schnee";
+        burg="burgi";
+        listeHerkunft.add("Peter");
+        listeHerkunft.add("Inge");
+        listeHandlung.add("Ep2");
+        listeHandlung.add("Ep3");
+        
+        //freemarker variablen setzen
+        request.setAttribute("ortname", name);
+        request.setAttribute("orthaus", haus);
+        request.setAttribute("ortburg", burg);
+        request.setAttribute("ortherkunftsort", listeHerkunft);
+        request.setAttribute("orthandlungsort", listeHandlung);
+        
         // Put the user list in request and let freemarker paint it.
         request.getRequestDispatcher("detail_ort.ftl").forward(request, response);
     }

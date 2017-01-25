@@ -32,7 +32,7 @@ public final class DBUtil {
 				Integer.toString(com.ibm.db2.jcc.DB2BaseDataSource.USER_ONLY_SECURITY));
 		properties.setProperty("user", "dbp012");
 		properties.setProperty("password", "nie3quui");
-
+		
 		final String url = "jdbc:db2://dione.is.inf.uni-due.de:50005/" + database + ":currentSchema=dbp012;";
 		System.out.println(url);
 		Connection connection = DriverManager.getConnection(url, properties);

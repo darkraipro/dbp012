@@ -39,10 +39,10 @@ body{
 		
 		</div>
 		<h1>Haus:</h1><br />
-		<p>Name:</p><br />
-		<p>Sitz:</p><br />
+		<p>Name: ${hausname}</p><br />
+		Sitz:<a href="detailort?name=${haussitz}">${haussitz}</a><br /><br />
 		<p>Besitz(Orte):</p>
-		
+			<#list hausbesitz as hb><a href="detailort?name=${hb}">${hb}</a><br /></#list><br />
 		<br /><br /><br />
 		<hr>
 		<p>Bewertung abgeben:</p> 

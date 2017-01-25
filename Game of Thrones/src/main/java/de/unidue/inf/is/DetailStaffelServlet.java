@@ -25,7 +25,25 @@ public final class DetailStaffelServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Put the user list in request and let freemarker paint it.
+    	//Variablen init
+    	int nummer=0;
+        List<String> listeEpisoden = new ArrayList<>();
+        
+        //SQL abfragen
+        nummer = Integer.parseInt(request.getParameter("nummer"));
+        //haus = sql where name=name
+        //burg = sql where name=name
+        
+        //TEST
+        listeEpisoden.add("ep1");
+        listeEpisoden.add("ep2 mag ich nicht");
+        
+        
+        //freemarker variablen setzen
+        request.setAttribute("staffelepisoden", listeEpisoden);
+        request.setAttribute("staffelnummer", nummer);
+    	
+    	// Put the user list in request and let freemarker paint it.
         request.getRequestDispatcher("detail_staffel.ftl").forward(request, response);
     }
 

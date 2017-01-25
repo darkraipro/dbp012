@@ -25,7 +25,29 @@ public final class DetailHausServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Put the user list in request and let freemarker paint it.
+    	//Variablen init
+        String name, sitz;
+        name=sitz="";
+        List<String> listeBesitz = new ArrayList<>();
+        
+        //SQL abfragen
+        name = request.getParameter("name");
+        //haus = sql where name=name
+        //burg = sql where name=name
+        
+        //TEST
+        name="juhu";
+        sitz="lolasd";
+        listeBesitz.add("asd");
+        listeBesitz.add("asd2");
+        
+        
+        //freemarker variablen setzen
+        request.setAttribute("hausname", name);
+        request.setAttribute("haussitz", sitz);
+        request.setAttribute("hausbesitz", listeBesitz);
+        
+    	// Put the user list in request and let freemarker paint it.
         request.getRequestDispatcher("detail_haus.ftl").forward(request, response);
     }
 

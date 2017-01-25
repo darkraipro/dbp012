@@ -25,8 +25,26 @@ public final class DetailPlaylistServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Put the user list in request and let freemarker paint it.
-        request.getRequestDispatcher("detail_tier.ftl").forward(request, response);
+    	//Variablen init
+        String name = "";
+        List<String> listeEpisoden = new ArrayList<>();
+        
+        //SQL abfragen
+        name = request.getParameter("name");
+        //haus = sql where name=name
+        //burg = sql where name=name
+        
+        //TEST
+        listeEpisoden.add("ep1");
+        listeEpisoden.add("vielleicht auch ep2");
+        
+        
+        //freemarker variablen setzen
+        request.setAttribute("playlistname", name);
+        request.setAttribute("playlistepisoden", listeEpisoden);
+    	
+    	// Put the user list in request and let freemarker paint it.
+        request.getRequestDispatcher("detail_playlist.ftl").forward(request, response);
     }
 
 

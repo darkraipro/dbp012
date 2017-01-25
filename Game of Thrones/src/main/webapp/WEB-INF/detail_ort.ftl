@@ -39,11 +39,13 @@ body{
 		
 		</div>
 		<h1>Ort:</h1><br />
-		<p>Name:</p><br />
-		<p>Haus(Besitzer):</p><br />
-		<p>Burg:</p><br />
-		<p>Herkunftsort von:</p><br />
+		<p>Name: ${ortname}</p><br />
+		Haus(Besitzer):<a href="detailhaus?name=${orthaus}">${orthaus}</a><br /><br />
+		<p>Burg: ${ortburg}</p><br />
+		<p>Herkunftsort von:</p>
+			<#list ortherkunftsort as oh><a href="detailperson?name=${oh}">${oh}</a><br /></#list><br />
 		<p>Handlungsort in:</p>
+			<#list orthandlungsort as oh2><a href="detailepisode?name=${oh2}">${oh2}</a><br /></#list><br />
 		
 		<br /><br /><br />
 		<hr>

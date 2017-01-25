@@ -39,13 +39,14 @@ body{
 		
 		</div>
 		<h1>Person:</h1><br />
-		<p>Name:</p><br />
-		<p>Herkuntsort:</p><br />
-		<p>Biographie:</p><br />
-		<p>Häuser:</p><br />
-		<p>Beziehungen:</p><br />
-		<p>Besitzer von:</p>
-		
+		<p>Name: ${personname}</p><br />
+		Herkuntsort: <a href="detailort?name=${personherkunft}">${personherkunft}</a><br /><br />
+		<p>Biographie: ${personbiographie}</p><br />
+		Haus: <a href="detailhaus?name=${personhaus}">${personhaus}</a><br /><br />
+		<p>Beziehungen: </p>
+			<#list personbeziehungen as pb><a href="detailperson?name=${pb.name}">${pb.name}</a> Art: ${pb.art}<br /></#list><br />
+		<p>Besitzer von: </p>
+			<#list personbesitzer as pb2><a href="detailtier?name=${pb2}">${pb2}</a><br /></#list><br />
 		
 		<br /><br /><br />
 		<hr>

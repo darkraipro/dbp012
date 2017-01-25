@@ -42,19 +42,19 @@ body{
 		</div>
 		<!-- <a href="/detailperson">lol</a> -->
 		<h1>Figuren:</h1><br />
-		<button type="button" name="btn_figuren">Alle Figuren</button><br />
+		<button type="button" name="btn_figuren" onclick="location.href='/listefiguren'">Alle Figuren</button><br />
 		<input type="text" name="txt_suchfigur" />
 		<button type="button" name="btn_suchfigur">Suchen</button>
 		<br /><br />
 		
 		<h1>Häuser:</h1><br />
-		<button type="button" name="btn_haeuser">Alle Häuser</button><br />
+		<button type="button" name="btn_haeuser" onclick="location.href='/listehaeuser'">Alle Häuser</button><br />
 		<input type="text" name="txt_suchhaus" />
 		<button type="button" name="btn_suchhaus">Suchen</button>
 		<br /><br />
 		
 		<h1>Staffeln:</h1><br />
-		<button type="button" name="btn_staffeln">Alle Staffeln</button><br />
+		<button type="button" name="btn_staffeln" onclick="location.href='/listestaffeln'">Alle Staffeln</button><br />
 		<input type="text" name="txt_suchstaffel" />
 		<button type="button" name="btn_suchstaffel">Suchen</button>
 		<br /><br />

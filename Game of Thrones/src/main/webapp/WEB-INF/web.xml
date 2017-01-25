@@ -162,6 +162,16 @@
 		<servlet-name>liste_staffeln_servlet</servlet-name>
 		<url-pattern>/listestaffeln</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>dbtest</servlet-name>
+		<servlet-class>de.unidue.inf.is.GoTServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>dbtest</servlet-name>
+		<url-pattern>/dbtest</url-pattern>
+	</servlet-mapping>
 	<!-- ###################################################### -->
 	<!-- ################### PROJEKT ENDE ##################### -->
 	<!-- ###################################################### -->

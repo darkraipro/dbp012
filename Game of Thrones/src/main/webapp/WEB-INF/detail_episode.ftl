@@ -39,12 +39,14 @@ body{
 		
 		</div>
 		<h1>Episode:</h1><br />
-		<p>Titel:</p><br />
-		<p>Nummer:</p><br />
-		<p>Staffel:</p><br />
-		<p>Handlung:</p><br />
-		<p>Figuren:</p><br />
+		<p>Titel:${episodetitel}</p><br />
+		<p>Nummer:${episodenummer}</p><br />
+		Staffel:<a href="detailstaffel?nummer=${episodestaffel}">Staffel ${episodestaffel}</a><br />
+		<p>Handlung: ${episodehandlung}</p><br />
+		<p>Figuren:</p>
+			<#list episodefiguren as ef><a href="detailperson?name=${ef}">${ef}</a><br /></#list><br />
 		<p>Handlungsorte:</p>
+			<#list episodeorte as eo><a href="detailort?name=${eo}">${eo}</a><br /></#list><br />
 		
 		<br /><br /><br />
 		<hr>

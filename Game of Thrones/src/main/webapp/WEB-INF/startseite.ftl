@@ -35,26 +35,33 @@ body{
 	    <div id="logo">
 			<img width="100%" src="images/header.jpg" class="centerBlock" />
 		</div>
-		<div id="site">
-		<p>
-			Die Datenbank "${db2name}" ist ${db2exists}
-		</p>
-		</div>
 		<!-- <a href="/detailperson">lol</a> -->
 		<h1>Figuren:</h1><br />
+<<<<<<< HEAD
 		<button type="button" name="btn_figuren" onclick="location.href='/listefiguren'">Alle Figuren</button><br />
+=======
+		<button type="button" onclick="window.location.href='/listefiguren'" name="btn_figuren">Alle Figuren</button><br />
+>>>>>>> branch 'master' of https://github.com/darkraipro/dbp012
 		<input type="text" name="txt_suchfigur" />
 		<button type="button" name="btn_suchfigur">Suchen</button>
 		<br /><br />
 		
 		<h1>Häuser:</h1><br />
+<<<<<<< HEAD
 		<button type="button" name="btn_haeuser" onclick="location.href='/listehaeuser'">Alle Häuser</button><br />
+=======
+		<button type="button" onclick="window.location.href='/listehaeuser'" name="btn_haeuser">Alle Häuser</button><br />
+>>>>>>> branch 'master' of https://github.com/darkraipro/dbp012
 		<input type="text" name="txt_suchhaus" />
 		<button type="button" name="btn_suchhaus">Suchen</button>
 		<br /><br />
 		
 		<h1>Staffeln:</h1><br />
+<<<<<<< HEAD
 		<button type="button" name="btn_staffeln" onclick="location.href='/listestaffeln'">Alle Staffeln</button><br />
+=======
+		<button type="button" onclick="window.location.href='/listestaffeln'" name="btn_staffeln">Alle Staffeln</button><br />
+>>>>>>> branch 'master' of https://github.com/darkraipro/dbp012
 		<input type="text" name="txt_suchstaffel" />
 		<button type="button" name="btn_suchstaffel">Suchen</button>
 		<br /><br />

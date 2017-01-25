@@ -27,7 +27,7 @@ public final class StartseiteServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Put the user list in request and let freemarker paint it.
-    	final String databaseToCheck = "dbp012";
+    	final String databaseToCheck = "got";
 		boolean databaseExists = DBUtil.checkDatabaseExists(databaseToCheck);
 
 		request.setAttribute("db2name", databaseToCheck);

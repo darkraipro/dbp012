@@ -39,7 +39,17 @@ body{
 		
 		</div>
 		<h1>Liste aller Figuren:</h1><br />
+		<table class="datatable">
+		<tr>
+        <th>Name</th>  <th>Geburtsort</th>	<th>CharacterID</th>
+    	</tr>
+    <#list figuren as char>
+    <tr>
+        <td><a href="${char.art}?name=${char.name}">${char.name}</td>	<td><center>${char.birthplace}</center></td>		<td><center>${char.cid}</center></td>
+    </tr>
+    </#list>
+    </table>
 	</div>
-	
+	<div><a href="start">Startseite</a></div>
 </body>
 </html>

@@ -30,6 +30,7 @@ public final class ListeHaeuserServlet extends HttpServlet {
 		// Put the user list in request and let freemarker paint it.
 		Haus haus;
 		Connection db2Conn = null;
+		houseList.clear();
 		//String out = "";
 		try {
 			db2Conn = DBUtil.getConnection("got");
@@ -37,13 +38,15 @@ public final class ListeHaeuserServlet extends HttpServlet {
 			PreparedStatement ps = db2Conn.prepareStatement(sql1);
 			ResultSet rs = ps.executeQuery();
 			//StringBuffer outb = new StringBuffer();
-			while(rs.next()){
+			int i = 0;
+			while(rs.next() && i<5){
 				String name = rs.getString("name");
 				String words = rs.getString("words");
 				int seat = rs.getInt("seat");
 				haus = new Haus(name, words, seat);
 				houseList.add(haus);
 				//outb.append(name).append(" ").append(words).append(" ").append(seat).append("\n");
+				i++;
 			}
 			//out = outb.toString();
 			//System.out.println(out);

@@ -44,6 +44,8 @@ body{
 			<#list playlistepisoden as pe><a href="detailepisode?titel=${pe}">${pe}</a><br /></#list><br />
 		
 	</div>
-	
+	<div>
+	<a href="start">Startseite</a>
+	</div>
 </body>
 </html>

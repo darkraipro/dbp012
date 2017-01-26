@@ -45,13 +45,13 @@ body{
     </tr>
     <#list haeuser as haus>
     <tr>
-        <td><a href="detailhaus?name=${haus.name}">${haus.name}</td> <td>   ${haus.words}</td>	<td>${haus.seat}</td>
+        <td><a href="detailhaus?name=${haus.name}">${haus.name}</td> <td>  <center> ${haus.words}</center></td>	<td><center>${haus.seat}</center></td>
     </tr>
     </#list>
   </table>
 	</div>
 	<div>
-	
+	<a href="start">Startseite</a>
 	</div>
 </body>
 </html>

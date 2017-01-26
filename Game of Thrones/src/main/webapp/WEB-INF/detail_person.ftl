@@ -70,6 +70,8 @@ body{
 		<br />
 		
 	</div>
-	
+	<div>
+	<a href="start">Startseite</a>
+	</div>
 </body>
 </html>

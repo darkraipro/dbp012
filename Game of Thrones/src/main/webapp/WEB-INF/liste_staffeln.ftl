@@ -39,7 +39,20 @@ body{
 		
 		</div>
 		<h1>Liste aller Staffeln:</h1><br />
-	</div>
 	
+	<table class="datatable">
+		<tr>
+        <th>Staffel</th>  <th>Anzahl Episoden</th>	<th>Erstveröffentlichung</th>
+    	</tr>
+    <#list season as seas>
+    <tr>
+        <td><a href="detailstaffel?name=${seas.number}">${seas.number}</td>	<td><center>${seas.numberOfE}</center></td>		<td><center>${seas.date}</center></td>
+    </tr>
+    </#list>
+    </table>
+    </div>
+    	<div>
+	<a href="start">Startseite</a>
+	</div>
 </body>
 </html>

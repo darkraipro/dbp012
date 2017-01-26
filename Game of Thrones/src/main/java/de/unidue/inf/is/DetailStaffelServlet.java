@@ -71,7 +71,7 @@ public final class DetailStaffelServlet extends HttpServlet {
 		}*/
         
         //SQL abfragen
-        nummer = request.getParameter("seas.number");
+        nummer = request.getParameter("name");
         //haus = sql where name=name
         //burg = sql where name=name
         

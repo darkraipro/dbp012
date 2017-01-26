@@ -39,7 +39,7 @@ body{
 		
 		</div>
 		<h1>Staffel:</h1><br />
-		<p>Nummer: ${"staffelnummer"}</p><br />
+		<p>Nummer: ${staffelnummer}</p><br />
 		<p>Episoden:</p>
 			<#list staffelepisoden as se><a href="detailepisode?titel=${se}">${se}</a><br /></#list><br />
 		<br /><br /><br />

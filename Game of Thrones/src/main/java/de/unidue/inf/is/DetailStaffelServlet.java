@@ -18,49 +18,59 @@ import de.unidue.inf.is.domain.Episode;
 import de.unidue.inf.is.domain.Season;
 import de.unidue.inf.is.utils.DBUtil;
 
-
-
 /**
  * Einfaches Beispiel, das die Vewendung der Template-Engine zeigt.
  */
 public final class DetailStaffelServlet extends HttpServlet {
 
-    private static final long serialVersionUID = 1L;
-    private List<Episode> listEpisoden = new ArrayList<>();
+	private static final long serialVersionUID = 1L;
+	private List<Episode> listEpisoden = new ArrayList<>();
 
-
-
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	//Variablen init
-    	Episode ep;
-    	String nummer="";
-    	/*
-    	Connection db2Conn = null;
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// Variablen init
+		Episode ep;
+		int nummer = 0;
+		String num = "";
+		Connection db2Conn = null;
 		listEpisoden.clear();
-		//String out = "";
+		// String out = "";
 		try {
+			StringBuffer outb = new StringBuffer();
+			outb.append("SELECT * FROM Episodes, Season WHERE Episodes.sid = Season.sid and Season.sid = ")
+					.append(request.getParameter("name"));
 			db2Conn = DBUtil.getConnection("got");
-			final String sql1 = "SELECT * FROM Episodes, Season WHERE Episodes.sid = Season." + request.getParameter();
+			final String sql1 = outb.toString();
+			outb.delete(0, outb.length());
+			outb.append("SELECT number FROM Season WHERE Season.sid = ").append(request.getParameter("name"));
+			final String sql2 = outb.toString();
 			PreparedStatement ps = db2Conn.prepareStatement(sql1);
+			PreparedStatement ps1 = db2Conn.prepareStatement(sql2);
 			ResultSet rs = ps.executeQuery();
-			//StringBuffer outb = new StringBuffer();
 			int i = 0;
-			while(rs.next() && i<5){
-				int number = rs.getInt("number");
-				int numberofe = rs.getInt("numberofe");
+			while (rs.next() && i < 5) {
+				int number = rs.getInt("eid");
+				int numberofe = rs.getInt("number");
+				int sid = rs.getInt("sid");
+				String summary = rs.getString("summary");
+				String title = rs.getString("title");
 				Date date = rs.getDate("startdate");
-				ep = new Episode(number, numberofe, date);
+				ep = new Episode(number, numberofe, title, summary, date, sid);
 				listEpisoden.add(ep);
-				//outb.append(name).append(" ").append(words).append(" ").append(seat).append("\n");
+
 				i++;
 			}
-			//out = outb.toString();
-			//System.out.println(out);
+			rs = ps1.executeQuery();
+			if (rs.next()) {
+				nummer = rs.getInt("number");
+				System.out.println("Nummer: " + Integer.toString(nummer));
+			}
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			// Resourcen schließen
+			// Ressourcen schließen
 			if (db2Conn != null) {
 				try {
 					db2Conn.close();
@@ -68,27 +78,20 @@ public final class DetailStaffelServlet extends HttpServlet {
 					e.printStackTrace();
 				}
 			}
-		}*/
-        
-        //SQL abfragen
-        nummer = request.getParameter("name");
-        //haus = sql where name=name
-        //burg = sql where name=name
-        
-        
-        
-        //freemarker variablen setzen
-        request.setAttribute("staffelepisoden", listEpisoden);
-        request.setAttribute("staffelnummer", nummer);
-    	
-    	// Put the user list in request and let freemarker paint it.
-        request.getRequestDispatcher("detail_staffel.ftl").forward(request, response);
-    }
+		}
 
+		num = Integer.toString(nummer);
+		// freemarker variablen setzen
+		request.setAttribute("staffelepisoden", listEpisoden);
+		request.setAttribute("staffelnummer", num);
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,
-                    IOException {
-        doGet(request, response);
-    }
+		// Put the user list in request and let freemarker paint it.
+		request.getRequestDispatcher("detail_staffel.ftl").forward(request, response);
+	}
+
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doGet(request, response);
+	}
 }

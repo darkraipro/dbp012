@@ -39,10 +39,19 @@ body{
 		
 		</div>
 		<h1>Staffel:</h1><br />
-		<p>Nummer: ${staffelnummer}</p><br />
-		<p>Episoden:</p>
-			<#list staffelepisoden as se><a href="detailepisode?titel=${se}">${se}</a><br /></#list><br />
-		<br /><br /><br />
+		<p>Staffelnummer: ${staffelnummer}</p>
+		<table class="datatable">
+		<tr>
+                    <th>Episodentitel</th>  <th>Episodennummer </th>	<th>Erstausstrahlung</th>
+                </tr>
+			<#list staffelepisoden as se>
+                    <tr>
+<td><a href="detailepisode?eid=${se.eid}">${se.title}</a></td> <td><center>${se.number}</center></td> <td><center>${se.releaseDate}</center></td>
+
+ <</#list>
+</table>
+<br />
+		
 		<hr>
 		<p>Bewertung abgeben:</p> 
 		<select size="1" name="select_bewertung">

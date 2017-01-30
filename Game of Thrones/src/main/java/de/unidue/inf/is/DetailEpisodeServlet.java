@@ -2,6 +2,7 @@ package de.unidue.inf.is;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,7 +14,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import de.unidue.inf.is.domain.Episode;
+import de.unidue.inf.is.domain.Figur;
 import de.unidue.inf.is.domain.Haus;
+import de.unidue.inf.is.domain.Ort;
 import de.unidue.inf.is.domain.User;
 import de.unidue.inf.is.utils.DBUtil;
 
@@ -31,52 +35,50 @@ public final class DetailEpisodeServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
-    	
+        	
     	//Variablen init
-    	int episode, nummer, staffel;
-    	episode=nummer=staffel=0;
-        String titel, handlung;
-        titel=handlung="";
-        List<String> listeFiguren = new ArrayList<>();
-        List<String> listeOrte = new ArrayList<>();
-        
-      //TEST
-        episode=-1;
-        nummer=-1;
-        staffel=-1;
-        handlung="Keine Handlung";
+    	Episode episode = new Episode();
+        List<Figur> listeFiguren = new ArrayList<>();
+        List<Ort> listeOrte = new ArrayList<>();
         
         //SQL abfragen
-        titel = request.getParameter("titel");
         Connection db2Conn = null;
 		try {
 			db2Conn = DBUtil.getConnection("got");
-			final String sql1 = ("SELECT eid, number, sid, summary FROM episodes WHERE title='"+titel+"'");
-			System.out.println(sql1);
-			PreparedStatement ps = db2Conn.prepareStatement(sql1);
+			
+			//Episode laden
+			String sql = ("SELECT * FROM episodes WHERE eid = ")+request.getParameter("eid");
+			PreparedStatement ps = db2Conn.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
-			while(rs.next()){
-				episode = rs.getInt("eid");
-				nummer = rs.getInt("nummer");
-				staffel = rs.getInt("sid");
-				handlung = rs.getString("summary");
-				System.out.println(staffel);
+			while (rs.next()) {
+				episode = new Episode(rs.getInt("eid"), rs.getInt("number"), rs.getString("title"),
+										rs.getString("summary"), rs.getDate("releasedate"), rs.getInt("sid"));
 			}
-		} catch (SQLException e) {
-			System.out.println("SQL FEHLER");
-			e.printStackTrace();
-		} finally {if (db2Conn != null) {try {db2Conn.close();} catch (SQLException e) {e.printStackTrace();}}}
-        
-        
-        
+			//Figuren laden
+			sql = ("SELECT characters.cid, characters.name, characters.birthplace FROM characters, char_for_epi WHERE characters.cid = char_for_epi.cid AND "
+					+ " char_for_epi.eid = ")+request.getParameter("eid");
+			ps = db2Conn.prepareStatement(sql);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				listeFiguren.add(new Figur(rs.getString("name"), 0, rs.getInt("cid")));
+			}
+			//Orte laden
+			sql = ("SELECT location.lid, location.name FROM location, loc_for_epi WHERE location.lid = loc_for_epi.lid AND "
+					+ " loc_for_epi.eid = ")+request.getParameter("eid");
+			ps = db2Conn.prepareStatement(sql);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				listeOrte.add(new Ort(rs.getInt("lid"),rs.getString("name")));
+			}
+		} catch (SQLException e) {e.printStackTrace();} 
+		finally {if (db2Conn != null) {try {db2Conn.close();} catch (SQLException e) {e.printStackTrace();}}}
         
         //freemarker variablen setzen
-        request.setAttribute("episodeid", episode);
-        request.setAttribute("episodetitel", titel);
-        request.setAttribute("episodenummer", nummer);
-        request.setAttribute("episodestaffel", staffel);
-        request.setAttribute("episodehandlung", handlung);
+        request.setAttribute("episodeid", episode.getEid());
+        request.setAttribute("episodetitel", episode.getTitle());
+        request.setAttribute("episodenummer", episode.getNumber());
+        request.setAttribute("episodestaffel", episode.getSid());
+        request.setAttribute("episodehandlung", episode.getSummary());
         request.setAttribute("episodefiguren", listeFiguren);
         request.setAttribute("episodeorte", listeOrte);
         

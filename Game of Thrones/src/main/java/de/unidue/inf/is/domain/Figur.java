@@ -19,7 +19,18 @@ public class Figur {
 	    this.art = art;
 	 }
 
-
+	 public Figur(String name, int birthplace, int cid) {
+		    this.birthplace = birthplace;
+		    this.name = name;
+		    this.cid = cid;
+		    this.art = "";
+		 }
+	 
+	 public Figur(int cid, String name) {
+		    this.name = name;
+		    this.cid = cid;
+		 }
+	 
 	 public String getName() {
 	    return name;
 	 }

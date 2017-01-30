@@ -40,12 +40,14 @@ body{
 		</div>
 		<h1>Ort:</h1><br />
 		<p>Name: ${ortname}</p><br />
-		Haus(Besitzer):<a href="detailhaus?name=${orthaus}">${orthaus}</a><br /><br />
-		<p>Burg: ${ortburg}</p><br />
+		<p>Besitzer:</p>
+			<#list orthaus as oh><a href="detailhaus?hid=${oh.hid}">${oh.housename}</a> von <a href="detailepisode?eid=${oh.epfromid}">${oh.epfromtitle}</a></a> bis <a href="detailepisode?eid=${oh.eptoid}">${oh.eptotitle}</a><br /></#list><br />
+		<p>Burgen:</p>
+			<#list ortburg as ob>${ob}<br /></#list><br />
 		<p>Herkunftsort von:</p>
-			<#list ortherkunftsort as oh><a href="detailperson?name=${oh}">${oh}</a><br /></#list><br />
+			<#list ortherkunftsort as ohe><a href="detailperson?cid=${ohe.cid}">${ohe.name}</a><br /></#list><br />
 		<p>Handlungsort in:</p>
-			<#list orthandlungsort as oh2><a href="detailepisode?name=${oh2}">${oh2}</a><br /></#list><br />
+			<#list orthandlungsort as oho><a href="detailepisode?eid=${oho.eid}">${oho.title}</a><br /></#list><br />
 		
 		<br /><br /><br />
 		<hr>

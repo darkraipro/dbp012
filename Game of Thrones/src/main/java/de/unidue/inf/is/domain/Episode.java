@@ -22,6 +22,12 @@ public class Episode {
 		this.sid = sid;
 	}
 	
+public Episode(int eid, String title){
+		
+		this.eid = eid;
+		this.title = title;
+	}
+	
 	public int getEid(){
 		return eid;
 	}

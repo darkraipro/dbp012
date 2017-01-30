@@ -39,7 +39,7 @@ public final class DetailStaffelServlet extends HttpServlet {
 		try {
 			StringBuffer outb = new StringBuffer();
 			outb.append("SELECT * FROM Episodes, Season WHERE Episodes.sid = Season.sid and Season.sid = ")
-					.append(request.getParameter("name"));
+					.append(request.getParameter("sid"));
 			db2Conn = DBUtil.getConnection("got");
 			final String sql1 = outb.toString();
 			outb.delete(0, outb.length());
@@ -83,7 +83,7 @@ public final class DetailStaffelServlet extends HttpServlet {
 		num = Integer.toString(nummer);
 		// freemarker variablen setzen
 		request.setAttribute("staffelepisoden", listEpisoden);
-		request.setAttribute("staffelnummer", num);
+		request.setAttribute("staffelnummer", request.getParameter("sid"));
 
 		// Put the user list in request and let freemarker paint it.
 		request.getRequestDispatcher("detail_staffel.ftl").forward(request, response);

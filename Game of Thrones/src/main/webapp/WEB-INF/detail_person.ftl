@@ -47,7 +47,7 @@ body{
 		<p>Beziehungen: </p>
 			<#list personbeziehungen as pb><a href="detailperson?cid=${pb.target}">${pb.name}</a> Art: ${pb.art}<br /></#list><br />
 		<p>Besitzer von: </p>
-			<#list personbesitzer as pb2><a href="detailtier?name=${pb2}">${pb2}</a><br /></#list><br />
+			<#list personbesitzer as pb2><a href="detailperson?cid=${pb2.cid}">${pb2.name}</a><br /></#list><br />
 		
 		<br /><br /><br />
 		<hr>

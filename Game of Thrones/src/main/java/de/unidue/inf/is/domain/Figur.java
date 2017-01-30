@@ -25,7 +25,7 @@ public class Figur {
 		    this.cid = cid;
 		    this.art = "";
 		 }
-	 
+
 	 public Figur(int cid, String name) {
 		    this.name = name;
 		    this.cid = cid;

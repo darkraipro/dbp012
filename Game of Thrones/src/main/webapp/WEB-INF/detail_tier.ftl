@@ -39,9 +39,9 @@ body{
 		
 		</div>
 		<h1>Tier:</h1><br />
-		<p>Name: ${tiername}</p><br />
-		Herkuntsort: <a href="detailort?name=${tierherkunft}">${tierherkunft}</a><br /><br />
-		Besitzer: <a href="detailperson?name=${tierbesitzer}">${tierbesitzer}</a>
+		<p>Name: ${tier.name}</p><br />
+		Herkuntsort: <a href="detailort?lid=${tierherkunft.lid}">${tierherkunft.name}</a><br /><br />
+		Besitzer: <a href="detailperson?cid=${tierbesitzer.cid}">${tierbesitzer.name}</a>
 		
 		<br /><br /><br />
 		<hr>

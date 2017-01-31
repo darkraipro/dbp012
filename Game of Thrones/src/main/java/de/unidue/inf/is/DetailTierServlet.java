@@ -1,6 +1,10 @@
 package de.unidue.inf.is;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +13,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import de.unidue.inf.is.domain.Beziehung;
+import de.unidue.inf.is.domain.Figur;
+import de.unidue.inf.is.domain.Mitglied;
+import de.unidue.inf.is.domain.Ort;
+import de.unidue.inf.is.domain.Person;
 import de.unidue.inf.is.domain.User;
+import de.unidue.inf.is.utils.DBUtil;
 
 
 
@@ -26,23 +36,56 @@ public final class DetailTierServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	//Variablen init
-    	String name, herkunft, besitzer;
-    	name=herkunft=besitzer="";
+    	Figur tier = null;
+    	Figur besitzer = null;
+    	Ort herkunft = null;
         
-    	//TEST
-        herkunft="Keine Herkunft";
-        besitzer="Kein Besitzer";
+    	////////////////////////////////////////////////////////////////////////
+    	//////////////////////// UNGETESTETER BEREICH //////////////////////////
+    	////////////////////////////////////////////////////////////////////////
+    	
+    	
+    	//SQL abfragen
+        Connection db2Conn = null;
+		try {
+			db2Conn = DBUtil.getConnection("got");
+			
+			//Tier laden
+			String sql = ("SELECT characters.name FROM characters "
+					+ "WHERE characters.cid = "+request.getParameter("cid"));
+			PreparedStatement ps = db2Conn.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				if(rs.getInt("result")>0){
+					tier = new Figur(Integer.parseInt(request.getParameter("cid")), rs.getString("name"));
+				}
+			}
+			//Besitzer laden
+			sql = ("SELECT characters.name, characters.cid FROM characters, animal "
+					+ "WHERE characters.cid = animal.owner AND animal.aid = "+request.getParameter("cid"));
+			ps = db2Conn.prepareStatement(sql);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				besitzer = new Figur(rs.getInt("cid"), rs.getString("name"));
+			}
+			//Herkunftsort laden
+			sql = ("SELECT location.name, location.lid FROM characters, location "
+					+ "WHERE location.lid = characters.birthplace AND characters.cid = "+request.getParameter("cid"));
+			ps = db2Conn.prepareStatement(sql);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				herkunft = new Ort(rs.getInt("lid"), rs.getString("name"));
+			}
+		} catch (SQLException e) {e.printStackTrace();} 
+		finally {if (db2Conn != null) {try {db2Conn.close();} catch (SQLException e) {e.printStackTrace();}}}
         
-        //SQL abfragen
-        name = request.getParameter("name");
-        //haus = sql where name=name
-        //burg = sql where name=name
-        
-        
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
         
         
         //freemarker variablen setzen
-        request.setAttribute("tiername", name);
+        request.setAttribute("tiername", tier);
         request.setAttribute("tierherkunft", herkunft);
         request.setAttribute("tierbesitzer", besitzer);
         

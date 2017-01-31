@@ -39,10 +39,10 @@ body{
 		
 		</div>
 		<h1>Haus:</h1><br />
-		<p>Name: ${hausname}</p><br />
-		Sitz:<a href="detailort?name=${haussitz}">${haussitz}</a><br /><br />
+		<p>Name: ${haus.name}</p><br />
+		Sitz:<a href="detailort?lid=${haussitz.lid}">${haussitz.name}</a><br /><br />
 		<p>Besitz(Orte):</p>
-			<#list hausbesitz as hb><a href="detailort?name=${hb}">${hb}</a><br /></#list><br />
+			<#list hausbesitz as hb><a href="detailort?lid=${hb.lid}">${hb.locationname}</a> von <a href="detailepisode?eid=${hb.epfromid}">${hb.epfromtitle}</a> bis <a href="detailepisode?eid=${hb.eptoid}">${hb.eptotitle}</a> <br /></#list><br />
 		<br /><br /><br />
 		<hr>
 		<p>Bewertung abgeben:</p> 

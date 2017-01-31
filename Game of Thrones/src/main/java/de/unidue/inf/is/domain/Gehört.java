@@ -3,7 +3,7 @@ package de.unidue.inf.is.domain;
 public final class Gehört {
 
     private int lid, hid, epfromid, eptoid;
-    String housename, epfromtitle, eptotitle;
+    String housename, epfromtitle, eptotitle, locationname;
 
     public Gehört() {
     }
@@ -17,6 +17,17 @@ public final class Gehört {
         this.eptoid = eptoid;
         this.epfromtitle = epfromtitle;
         this.eptotitle = eptotitle;
+    }
+    
+    public Gehört(int lid, int hid, String housename, int epfromid, String epfromtitle, int eptoid, String eptotitle, String locationname) {
+        this.lid = lid;
+        this.hid = hid;
+        this.housename = housename;
+        this.epfromid = epfromid;
+        this.eptoid = eptoid;
+        this.epfromtitle = epfromtitle;
+        this.eptotitle = eptotitle;
+        this.locationname = locationname;
     }
 
 
@@ -34,6 +45,10 @@ public final class Gehört {
     
     public int getEpfromid(){
     	return epfromid;
+    }
+    
+    public String getLocationname(){
+    	return locationname;
     }
     
     public int getEptoid(){

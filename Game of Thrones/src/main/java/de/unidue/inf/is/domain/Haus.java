@@ -32,6 +32,9 @@ public class Haus {
 	    return name;
 	 }
 
+	 public int getHid(){
+		 return hid;
+	 }
 
 	 public String getWords() {
 	    return words;

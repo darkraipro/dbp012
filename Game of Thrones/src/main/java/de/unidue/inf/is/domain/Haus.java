@@ -5,6 +5,7 @@ public class Haus {
 	 private String words;
 	 private int	seat;
 	 private int hid;
+	 private String ort;
 
 	 public Haus() {
 	 }
@@ -23,6 +24,13 @@ public class Haus {
 	    this.seat = seat;
 	 }
 	 
+	 public Haus(String name, String words, String ort, int seat) {
+		    this.name = name;
+		    this.words = words;
+		    this.ort = ort;
+		    this.seat = seat;
+		 }
+	 
 	 public Haus(int hid, String name) {
 		    this.hid = hid;
 		    this.name = name;
@@ -34,6 +42,10 @@ public class Haus {
 
 	 public int getHid(){
 		 return hid;
+	 }
+	 
+	 public String getOrt(){
+		 return ort;
 	 }
 
 	 public String getWords() {

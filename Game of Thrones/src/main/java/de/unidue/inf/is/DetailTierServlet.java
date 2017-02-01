@@ -56,9 +56,8 @@ public final class DetailTierServlet extends HttpServlet {
 			PreparedStatement ps = db2Conn.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				if(rs.getInt("result")>0){
 					tier = new Figur(Integer.parseInt(request.getParameter("cid")), rs.getString("name"));
-				}
+				
 			}
 			//Besitzer laden
 			sql = ("SELECT characters.name, characters.cid FROM characters, animal "
@@ -85,7 +84,7 @@ public final class DetailTierServlet extends HttpServlet {
         
         
         //freemarker variablen setzen
-        request.setAttribute("tiername", tier);
+        request.setAttribute("tier", tier);
         request.setAttribute("tierherkunft", herkunft);
         request.setAttribute("tierbesitzer", besitzer);
         

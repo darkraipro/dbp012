@@ -6,6 +6,7 @@ public class Figur {
 	 private int birthplace;
 	 private int	cid;
 	 private String art;
+	 private String birth;
 
 
 	 public Figur() {
@@ -18,6 +19,13 @@ public class Figur {
 	    this.cid = cid;
 	    this.art = art;
 	 }
+	 
+	 public Figur(String name, String birth, int cid, String art) {
+		    this.birth = birth;
+		    this.name = name;
+		    this.cid = cid;
+		    this.art = art;
+		 }
 
 	 public Figur(String name, int birthplace, int cid) {
 		    this.birthplace = birthplace;
@@ -35,7 +43,9 @@ public class Figur {
 	    return name;
 	 }
 
-	 
+	 public String getBirth(){
+		 return birth;
+	 }
 	 public int	getBirthplace(){
 	 	return birthplace;
 	}

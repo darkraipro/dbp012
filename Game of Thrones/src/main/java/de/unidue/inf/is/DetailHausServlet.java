@@ -65,7 +65,7 @@ public final class DetailHausServlet extends HttpServlet {
 			}
 			//Besitz laden
 			sql = ("SELECT location.name as lname, location.lid as lid, ep1.title as etitle1, ep2.title as etitle2, "
-					+ "ep1.eid as e1id, ep2 as e2id FROM location, episodes as ep1, episodes as ep2, belongs_to "
+					+ "ep1.eid as e1id, ep2.eid as e2id FROM location, episodes as ep1, episodes as ep2, belongs_to "
 					+ "WHERE ep1.eid = belongs_to.episode_from AND ep2.eid = belongs_to.episode_to AND "
 					+ "belongs_to.lid = location.lid AND belongs_to.hid = ")+request.getParameter("hid");
 			ps = db2Conn.prepareStatement(sql);

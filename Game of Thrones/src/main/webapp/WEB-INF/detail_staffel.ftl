@@ -39,8 +39,7 @@ body{
 		
 		</div>
 		<h1>Staffel:</h1><br />
-		<p>Staffelnummer: ${staffelnummer}</p>
-		<table class="datatable">
+		<p>Staffelnummer: ${staffelnummer}</p><table class="datatable">
 		<tr>
                     <th>Episodentitel</th>  <th>Episodennummer </th>	<th>Erstausstrahlung</th>
                 </tr>

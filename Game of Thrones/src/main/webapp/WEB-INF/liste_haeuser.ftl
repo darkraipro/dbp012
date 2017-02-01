@@ -45,7 +45,7 @@ body{
     </tr>
     <#list haeuser as haus>
     <tr>
-        <td><a href="detailhaus?name=${haus.name}">${haus.name}</td> <td>  <center> ${haus.words}</center></td>	<td><center>${haus.seat}</center></td>
+        <td><a href="detailhaus?name=${haus.name}">${haus.name}</td> <td>  <center> ${haus.words}</center></td>	<td><center><a href="detailort?lid=${haus.seat}">${haus.ort}</center></td>
     </tr>
     </#list>
   </table>

@@ -36,34 +36,28 @@ public final class ListeFigurenServlet extends HttpServlet {
 		//String out = "";
 		try {
 			db2Conn = DBUtil.getConnection("got");
-			final String sql1 = "SELECT name, birthplace, cid FROM characters, person WHERE pid = cid";
-			final String sql2 = "SELECT name, birthplace, cid FROM characters, animal WHERE aid = cid";
+			final String sql1 = "SELECT characters.name, location.name as geburtsort, cid FROM characters, person, location WHERE pid = cid and birthplace = location.lid";
+			final String sql2 = "SELECT characters.name, location.name as geburtsort, cid FROM characters, animal, location WHERE aid = cid and birthplace = location.lid";
 			PreparedStatement ps = db2Conn.prepareStatement(sql1);
 			PreparedStatement ps2 = db2Conn.prepareStatement(sql2);
 			ResultSet rs = ps.executeQuery();
 			ResultSet rs2 = ps2.executeQuery();
-			//StringBuffer outb = new StringBuffer();
-			int i = 0;
-			while(rs.next() && i <5){
+			while(rs.next()){
 				String name = rs.getString("name");
-				int birthplace = rs.getInt("birthplace");
+				String birthplace = rs.getString("geburtsort");
 				int cid = rs.getInt("cid");
 				String art = "detailperson";
 				character = new Figur(name, birthplace, cid, art);
 				characterList.add(character);
-				//outb.append(name).append(" ").append(words).append(" ").append(seat).append("\n");
-				i++;
+			
 			}
-			int j = 0;
-			while(rs2.next() && j<5){
+			while(rs2.next()){
 				String name = rs2.getString("name");
-				int birthplace = rs2.getInt("birthplace");
+				String birthplace = rs2.getString("geburtsort");
 				int cid = rs2.getInt("cid");
 				String art = "detailtier";
 				character = new Figur(name, birthplace, cid, art);
 				characterList.add(character);
-				//outb.append(name).append(" ").append(words).append(" ").append(seat).append("\n");
-				j++;
 			}
 			//out = outb.toString();
 			//System.out.println(out);

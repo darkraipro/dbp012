@@ -38,17 +38,16 @@ body{
 		<div id="site">
 		
 		</div>
-		<h1>Liste aller Figuren:</h1><br />
-		<table class="datatable">
-		<tr>
-        <th>Name</th>  <th>Geburtsort</th>	<th>CharacterID</th>
-    	</tr>
-    <#list figuren as char>
-    <tr>
-        <td><a href="${char.art}?name=${char.name}">${char.name}</td>	<td><center>${char.birth}</center></td>		<td><center>${char.cid}</center></td>
-    </tr>
+		<h1>Liste aller Suchergebnisse:</h1><br />
+    <#list figuren as fig>
+    <a href="detailperson?cid=${fig.cid}">${fig.name}</a><br />
     </#list>
-    </table>
+    <#list haeuser as hae>
+    <a href="detailhaus?hid=${hae.hid}">${hae.name}</a><br />
+    </#list>
+    <#list staffeln as sta>
+    <a href="detailstaffel?sid=${sta.sid}">Staffel ${sta.number}</a><br />
+    </#list>
 	</div>
 	<div><a href="start">Startseite</a></div>
 </body>

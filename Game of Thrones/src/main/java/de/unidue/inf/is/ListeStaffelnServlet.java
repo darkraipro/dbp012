@@ -40,17 +40,13 @@ public final class ListeStaffelnServlet extends HttpServlet {
 			final String sql1 = "SELECT number, numberofe, startdate, sid FROM season";
 			PreparedStatement ps = db2Conn.prepareStatement(sql1);
 			ResultSet rs = ps.executeQuery();
-			//StringBuffer outb = new StringBuffer();
-			int i = 0;
-			while(rs.next() && i<5){
+			while(rs.next()){
 				int number = rs.getInt("number");
 				int numberofe = rs.getInt("numberofe");
 				Date date = rs.getDate("startdate");
 				int sid = rs.getInt("sid");
 				season = new Season(number, numberofe, date, sid);
 				seasonList.add(season);
-				//outb.append(name).append(" ").append(words).append(" ").append(seat).append("\n");
-				i++;
 			}
 			//out = outb.toString();
 			//System.out.println(out);

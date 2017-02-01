@@ -39,7 +39,7 @@ body{
 		<h1>Figuren:</h1><br />
 		<#list vorschaufiguren as vf><a href="detailperson?cid=${vf.cid}">${vf.name}</a><br /></#list><br />
 		<button type="button" onclick="window.location.href='/listefiguren'" name="btn_figuren">Alle Figuren</button><br />
-		<form action="start" method="post">
+		<form method="post">
 		<input type="text" name="txt_suchfigur" />
         <input type="submit" name="btn_suchfigur" value="Suchen">
         </form>
@@ -48,15 +48,19 @@ body{
 		<h1>Häuser:</h1><br />
 		<#list vorschauhaeuser as vh><a href="detailhaus?hid=${vh.hid}">${vh.name}</a><br /></#list><br />
 		<button type="button" onclick="window.location.href='/listehaeuser'" name="btn_haeuser">Alle Häuser</button><br />
+		<form method="post">
 		<input type="text" name="txt_suchhaus" />
 		<button type="submit" name="btn_suchhaus">Suchen</button>
+		</form>
 		<br /><br />
 		
 		<h1>Staffeln:</h1><br />
 		<#list vorschaustaffeln as vs><a href="detailstaffel?sid=${vs.sid}">Staffel ${vs.number}</a><br /></#list><br />
 		<button type="button" onclick="window.location.href='/listestaffeln'" name="btn_staffeln">Alle Staffeln</button><br />
+		<form method="post">
 		<input type="text" name="txt_suchstaffel" />
 		<button type="submit" name="btn_suchstaffel">Suchen</button>
+		</form>
 		<br /><br />
 		
 		<h1>Playlists:</h1><br />

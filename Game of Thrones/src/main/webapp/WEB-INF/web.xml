@@ -183,6 +183,16 @@
 		<servlet-name>dbtest</servlet-name>
 		<url-pattern>/dbtest</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>suchergebnisse</servlet-name>
+		<servlet-class>de.unidue.inf.is.SuchServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>suchergebnisse</servlet-name>
+		<url-pattern>/suche</url-pattern>
+	</servlet-mapping>
 	<!-- ###################################################### -->
 	<!-- ################### PROJEKT ENDE ##################### -->
 	<!-- ###################################################### -->

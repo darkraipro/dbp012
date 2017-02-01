@@ -34,19 +34,19 @@ public final class ListeHaeuserServlet extends HttpServlet {
 		//String out = "";
 		try {
 			db2Conn = DBUtil.getConnection("got");
-			final String sql1 = "SELECT name, words, seat FROM houses";
+			final String sql1 = "SELECT houses.name, words, seat, location.name as ort FROM houses, location WHERE houses.seat = location.lid";
 			PreparedStatement ps = db2Conn.prepareStatement(sql1);
 			ResultSet rs = ps.executeQuery();
 			//StringBuffer outb = new StringBuffer();
-			int i = 0;
-			while(rs.next() && i<5){
+			while(rs.next()){
 				String name = rs.getString("name");
 				String words = rs.getString("words");
+				String ort = rs.getString("ort");
 				int seat = rs.getInt("seat");
-				haus = new Haus(name, words, seat);
+				haus = new Haus(name, words, ort, seat);
 				houseList.add(haus);
 				//outb.append(name).append(" ").append(words).append(" ").append(seat).append("\n");
-				i++;
+		
 			}
 			//out = outb.toString();
 			//System.out.println(out);

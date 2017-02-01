@@ -17,6 +17,11 @@ public class Season {
 		this.sid = sid;
 	}
 	
+	public Season(int sid, int numberSeason){
+		this.number = numberSeason;
+		this.sid = sid;
+	}
+	
 	public int getNumber(){
 		return number;
 	}

@@ -37,21 +37,26 @@ body{
 		</div>
 		<!-- <a href="/detailperson">lol</a> -->
 		<h1>Figuren:</h1><br />
+		<#list vorschaufiguren as vf><a href="detailperson?cid=${vf.cid}">${vf.name}</a><br /></#list><br />
 		<button type="button" onclick="window.location.href='/listefiguren'" name="btn_figuren">Alle Figuren</button><br />
+		<form action="start" method="post">
 		<input type="text" name="txt_suchfigur" />
-		<button type="button" name="btn_suchfigur">Suchen</button>
+        <input type="submit" name="btn_suchfigur" value="Suchen">
+        </form>
 		<br /><br />
 		
 		<h1>Häuser:</h1><br />
+		<#list vorschauhaeuser as vh><a href="detailhaus?hid=${vh.hid}">${vh.name}</a><br /></#list><br />
 		<button type="button" onclick="window.location.href='/listehaeuser'" name="btn_haeuser">Alle Häuser</button><br />
 		<input type="text" name="txt_suchhaus" />
-		<button type="button" name="btn_suchhaus">Suchen</button>
+		<button type="submit" name="btn_suchhaus">Suchen</button>
 		<br /><br />
 		
 		<h1>Staffeln:</h1><br />
+		<#list vorschaustaffeln as vs><a href="detailstaffel?sid=${vs.sid}">Staffel ${vs.number}</a><br /></#list><br />
 		<button type="button" onclick="window.location.href='/listestaffeln'" name="btn_staffeln">Alle Staffeln</button><br />
 		<input type="text" name="txt_suchstaffel" />
-		<button type="button" name="btn_suchstaffel">Suchen</button>
+		<button type="submit" name="btn_suchstaffel">Suchen</button>
 		<br /><br />
 		
 		<h1>Playlists:</h1><br />

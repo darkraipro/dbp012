@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import de.unidue.inf.is.domain.Figur;
 import de.unidue.inf.is.domain.Haus;
 import de.unidue.inf.is.domain.Ort;
+import de.unidue.inf.is.domain.Playlist;
 import de.unidue.inf.is.domain.Season;
 import de.unidue.inf.is.utils.DBUtil;
 
@@ -165,6 +166,52 @@ public final class StartseiteServlet extends HttpServlet {
 			}
 			if (legit) {
 				response.sendRedirect("/suche?suchef=&sucheh=&suches=" + textfeld);
+			} else {
+				response.sendRedirect(("/start"));
+			}
+		}
+		if (request.getParameter("btn_playlist") != null) {
+			String textfeld = request.getParameter("txt_playlist");
+			boolean legit = true;
+			for (String f : forbidden) {
+				if (textfeld.contains(f))
+					legit = false;
+			}
+			if (legit) {
+				Connection db2Conn = null;
+				try {
+					List<Playlist> playlists = new ArrayList<>();
+				
+					db2Conn = DBUtil.getConnection("got");
+					
+					//Playlists laden
+					String sql = ("SELECT plid, name FROM playlist");
+					PreparedStatement ps = db2Conn.prepareStatement(sql);
+					ResultSet rs = ps.executeQuery();
+					while (rs.next()) {
+						playlists.add(new Playlist(rs.getInt("plid"), rs.getString("name")));
+					}
+					//Playlistnamen überprüfen
+					for(Playlist p: playlists){
+						if(textfeld.equals(p.getName())){
+							response.sendRedirect(("/start"));
+						}
+					}
+					sql = ("INSERT INTO playlist(name,usid) VALUES('"+textfeld+"', 1)");
+					ps = db2Conn.prepareStatement(sql);
+					ps.executeUpdate();
+					
+					sql = ("SELECT COUNT(plid) as playlistanzahl FROM playlist");
+					ps = db2Conn.prepareStatement(sql);
+					rs = ps.executeQuery();
+					int lastPlaylist = 0;
+					while (rs.next()) {
+						lastPlaylist = rs.getInt("playlistanzahl");
+					}
+					response.sendRedirect("/detailplaylist?plid=" + lastPlaylist);
+				
+				}catch (SQLException e) {e.printStackTrace();} 
+				finally {if (db2Conn != null) {try {db2Conn.close();} catch (SQLException e) {e.printStackTrace();}}}
 			} else {
 				response.sendRedirect(("/start"));
 			}

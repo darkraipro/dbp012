@@ -68,8 +68,10 @@ body{
 		<br /><br />
 		
 		<h3>Playlist erstellen:</h3><br />
+		<form method="post">
 		<p>Name:</p><input type="text" name="txt_playlist"></input>
-		<button type="button" name="btn_playlist">Playlist erstellen </button>
+		<input type="submit" name="btn_playlist" value="Playlist erstellen">
+		</form>
 	</div>
 	
 </body>

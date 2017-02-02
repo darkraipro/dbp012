@@ -64,7 +64,7 @@ body{
 		<br /><br />
 		
 		<h1>Playlists:</h1><br />
-		
+		<#list vorschauplaylist as vp><a href="detailplaylist?plid=${vp.plid}"> ${vp.name}</a><br /></#list><br />
 		<br /><br />
 		
 		<h3>Playlist erstellen:</h3><br />

@@ -45,7 +45,7 @@ body{
     	</tr>
     <#list figuren as char>
     <tr>
-        <td><a href="${char.art}?name=${char.name}">${char.name}</td>	<td><center>${char.birth}</center></td>		<td><center>${char.cid}</center></td>
+        <td><a href="${char.art}?cid=${char.cid}">${char.name}</td>	<td><center>${char.birth}</center></td>		<td><center>${char.cid}</center></td>
     </tr>
     </#list>
     </table>

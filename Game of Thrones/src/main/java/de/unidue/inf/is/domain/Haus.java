@@ -24,11 +24,12 @@ public class Haus {
 	    this.seat = seat;
 	 }
 	 
-	 public Haus(String name, String words, String ort, int seat) {
+	 public Haus(int hid, String name, String words, String ort, int seat) {
 		    this.name = name;
 		    this.words = words;
 		    this.ort = ort;
 		    this.seat = seat;
+		    this.hid = hid;
 		 }
 	 
 	 public Haus(int hid, String name) {

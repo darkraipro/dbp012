@@ -12,6 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import de.unidue.inf.is.domain.Episode;
 import de.unidue.inf.is.domain.Figur;
@@ -36,8 +37,8 @@ public final class DetailHausServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	//Variablen init
-        Haus haus = null;
-        Ort sitz = null;
+        List<Haus> haus = new ArrayList<>();
+        List<Ort> sitz = new ArrayList<>();
         List<Gehört> listeBesitz = new ArrayList<>();
         
     	////////////////////////////////////////////////////////////////////////
@@ -54,14 +55,14 @@ public final class DetailHausServlet extends HttpServlet {
 			PreparedStatement ps = db2Conn.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				haus = new Haus(Integer.parseInt(request.getParameter("hid")), rs.getString("name"));
+				haus.add(new Haus(Integer.parseInt(request.getParameter("hid")), rs.getString("name")));
 			}
 			//Sitz laden
 			sql = ("SELECT location.name, location.lid FROM houses, location WHERE location.lid = houses.seat AND houses.hid = ")+request.getParameter("hid");
 			ps = db2Conn.prepareStatement(sql);
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				sitz = new Ort(rs.getInt("lid"), rs.getString("name"));
+				sitz.add(new Ort(rs.getInt("lid"), rs.getString("name")));
 			}
 			//Besitz laden
 			sql = ("SELECT location.name as lname, location.lid as lid, ep1.title as etitle1, ep2.title as etitle2, "
@@ -71,8 +72,9 @@ public final class DetailHausServlet extends HttpServlet {
 			ps = db2Conn.prepareStatement(sql);
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				listeBesitz.add(new Gehört(rs.getInt("lid"), haus.getHid(), haus.getName(), rs.getInt("e1id"), rs.getString("etitle1"), rs.getInt("e2id"), rs.getString("etitle2"), rs.getString("lname")));
+				listeBesitz.add(new Gehört(rs.getInt("lid"), haus.get(0).getHid(), haus.get(0).getName(), rs.getInt("e1id"), rs.getString("etitle1"), rs.getInt("e2id"), rs.getString("etitle2"), rs.getString("lname")));
 			}
+			//Bewertungen laden
 		} catch (SQLException e) {e.printStackTrace();} 
 		finally {if (db2Conn != null) {try {db2Conn.close();} catch (SQLException e) {e.printStackTrace();}}}
         
@@ -93,6 +95,26 @@ public final class DetailHausServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,
                     IOException {
-        doGet(request, response);
+    	//Ratings
+		Connection db2Conn = null;
+    	try{
+    		db2Conn = DBUtil.getConnection("got");
+    		String sql = "Insert into Rating (usid, rating, text) values (?,?,?)";
+    		PreparedStatement ps = db2Conn.prepareStatement(sql);
+    		ps.setInt(1, 1);
+    		ps.setInt(2, request.getParameter("select_bewertung"));
+    		ps.setString(2, request.getParameter("textarea_bewertung"));
+    		
+    	}catch(SQLException e){
+			try {
+				db2Conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+    	}finally {if (db2Conn != null) {try {db2Conn.close();} catch (SQLException e) {e.printStackTrace();}}}
+    	if (request.getParameter("btn_playlist") != null) {
+    		response.sendRedirect("/detailhaus?hid="+request.getParameter("haus.hid"));
+    	}else{response.sendRedirect("/detailhaus?hid="+request.getParameter("haus.hid"));}
     }
 }

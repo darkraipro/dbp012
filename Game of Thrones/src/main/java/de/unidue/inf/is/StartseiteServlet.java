@@ -37,6 +37,7 @@ public final class StartseiteServlet extends HttpServlet {
 		List<Figur> listeFiguren = new ArrayList();
 		List<Haus> listeHaeuser = new ArrayList();
 		List<Season> listeStaffeln = new ArrayList();
+		List<Playlist> listePlaylist = new ArrayList();
 
 		// SQL abfragen
 		Connection db2Conn = null;
@@ -101,6 +102,14 @@ public final class StartseiteServlet extends HttpServlet {
 					listeStaffeln.add(new Season(rs.getInt("sid"), rs.getInt("number")));
 				}
 			}
+			
+			//Alle Playlisten laden
+			sql = ("SELECT plid, name FROM playlist");
+			ps = db2Conn.prepareStatement(sql);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				listePlaylist.add(new Playlist(rs.getInt("plid"), rs.getString("name")));
+			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -118,6 +127,7 @@ public final class StartseiteServlet extends HttpServlet {
 		request.setAttribute("vorschaufiguren", listeFiguren);
 		request.setAttribute("vorschauhaeuser", listeHaeuser);
 		request.setAttribute("vorschaustaffeln", listeStaffeln);
+		request.setAttribute("vorschauplaylist", listePlaylist);
 		if (databaseExists) {
 			request.setAttribute("db2exists", "");
 		} else {

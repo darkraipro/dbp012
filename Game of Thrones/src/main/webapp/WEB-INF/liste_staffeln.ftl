@@ -46,7 +46,7 @@ body{
     	</tr>
     <#list season as seas>
     <tr>
-        <td><a href="detailstaffel?name=${seas.number}">${seas.number}</td>	<td><center>${seas.numberOfE}</center></td>		<td><center>${seas.date}</center></td>
+        <td><a href="detailstaffel?sid=${seas.sid}">${seas.number}</td>	<td><center>${seas.numberOfE}</center></td>		<td><center>${seas.date}</center></td>
     </tr>
     </#list>
     </table>

@@ -39,13 +39,20 @@ body{
 		
 		</div>
 		<h1>Haus:</h1><br />
-		<p>Name: ${haus.name}</p><br />
-		Sitz:<a href="detailort?lid=${haussitz.lid}">${haussitz.name}</a><br /><br />
+		Name: 
+		<#list haus as h>
+		${h.name}<br />
+		</#list>
+		</br>
+		Sitz:
+		<#list haussitz as hs>
+		<a href="detailort?lid=${hs.lid}">${hs.name}</a><br /><br /></#list></br>
 		<p>Besitz(Orte):</p>
 			<#list hausbesitz as hb><a href="detailort?lid=${hb.lid}">${hb.locationname}</a> von <a href="detailepisode?eid=${hb.epfromid}">${hb.epfromtitle}</a> bis <a href="detailepisode?eid=${hb.eptoid}">${hb.eptotitle}</a> <br /></#list><br />
 		<br /><br /><br />
 		<hr>
 		<p>Bewertung abgeben:</p> 
+		<form method="post">
 		<select size="1" name="select_bewertung">
 			<option>0</option>
 			<option>1</option>
@@ -57,7 +64,8 @@ body{
 		<br />
 		<textarea rows="10" cols="50" name="textarea_bewertung"></textarea>
 		<br />
-		<button type="button" name="btn_bewerten">Bewerten</button>
+		<button type="submit" name="btn_bewerten">Bewerten</button>
+        </form>
 		<br /><br />
 		<hr>
 		<h3>Alle Bewertungen:</h3><br />

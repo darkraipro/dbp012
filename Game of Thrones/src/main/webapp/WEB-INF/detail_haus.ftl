@@ -68,8 +68,19 @@ body{
         </form>
 		<br /><br />
 		<hr>
+		
 		<h3>Alle Bewertungen:</h3><br />
-		<p>Durchschnittsbewertung: </p>
+		<table class="datatable">
+    <tr>
+        <th>Name</th>  <th>Bewertung</th>	<th>Kommentar</th>
+    </tr>
+    <#list listeBewertung as lb>
+    <tr>
+        <td>${lb.name}</td> <td>  <center> ${lb.rating}</center></td>	<td><center>${lb.text}</center></td>
+    </tr>
+    </#list>
+  </table>
+		<p>Durchschnittsbewertung: ${bewertung.avgrating}</p>
 		<br />
 	</div>
 	<div>

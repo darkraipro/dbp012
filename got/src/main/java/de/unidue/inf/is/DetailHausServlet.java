@@ -141,7 +141,7 @@ public final class DetailHausServlet extends HttpServlet {
 
 				db2Conn.setAutoCommit(false);
 				// Checking if rating exists
-				String sql = ("Select rating.usid as usidtest, rating.rid FROM rating, rat_for_house WHERE rating.usid = ?"
+				String sql = ("Select rating.usid as usidtest, rating.rid as rarid FROM rating, rat_for_house WHERE rating.usid = ?"
 						+ " and rating.rid = rat_for_house.rid and rat_for_house.hid = " + request.getParameter("hid"));
 				PreparedStatement ps = db2Conn.prepareStatement(sql);
 				ps.setInt(1, 21);
@@ -151,7 +151,7 @@ public final class DetailHausServlet extends HttpServlet {
 					if (rs.getInt("usidtest") == 21) {
 						System.out.println("Userrating already exists. Now proceed to Update");
 						exists = true;
-						ratingrid = rs.getInt("usidtest");
+						ratingrid = rs.getInt("rarid");
 					}
 				}
 				if (exists) {

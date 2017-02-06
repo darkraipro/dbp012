@@ -78,7 +78,7 @@ body{
     </tr>
     <#list listeBewertung as lb>
     <tr>
-        <td>${lb.name}</td> <td>  <center> ${lb.rating}</center></td>	<td><center>${lb.text}</center></td>
+        <td>${lb.username}</td> <td>  <center> ${lb.rating}</center></td>	<td><center>${lb.text}</center></td>
     </tr>
     </#list>
   </table>

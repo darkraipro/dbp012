@@ -39,10 +39,6 @@ public final class DetailHausServlet extends HttpServlet {
 		List<Bewertung> listeBewertung = new ArrayList<>();
 		Bewertung bewertung = new Bewertung();
 
-		////////////////////////////////////////////////////////////////////////
-		//////////////////////// UNGETESTETER BEREICH //////////////////////////
-		////////////////////////////////////////////////////////////////////////
-
 		// SQL abfragen
 		Connection db2Conn = null;
 		try {
@@ -76,19 +72,19 @@ public final class DetailHausServlet extends HttpServlet {
 						rs.getString("lname")));
 			}
 			// Personen(Angehörige) laden
-						sql = ("SELECT characters.name as cname, characters.cid as cid, ep1.title as etitle1, ep2.title as etitle2, "
-								+ "ep1.eid as e1id, ep2.eid as e2id FROM characters, episodes as ep1, episodes as ep2, member_of "
-								+ "WHERE ep1.eid = member_of.episode_from AND ep2.eid = member_of.episode_to AND "
-								+ "member_of.pid = characters.cid AND member_of.hid = ") + request.getParameter("hid");
-						ps = db2Conn.prepareStatement(sql);
-						rs = ps.executeQuery();
-						while (rs.next()) {
-							listePersonen.add(new GehörtAn(rs.getInt("cid"), haus.get(0).getHid(), haus.get(0).getName(),
-									rs.getInt("e1id"), rs.getString("etitle1"), rs.getInt("e2id"), rs.getString("etitle2"),
-									rs.getString("cname")));
-						}
+			sql = ("SELECT characters.name as cname, characters.cid as cid, ep1.title as etitle1, ep2.title as etitle2, "
+					+ "ep1.eid as e1id, ep2.eid as e2id FROM characters, episodes as ep1, episodes as ep2, member_of "
+					+ "WHERE ep1.eid = member_of.episode_from AND ep2.eid = member_of.episode_to AND "
+					+ "member_of.pid = characters.cid AND member_of.hid = ") + request.getParameter("hid");
+			ps = db2Conn.prepareStatement(sql);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				listePersonen.add(new GehörtAn(rs.getInt("cid"), haus.get(0).getHid(), haus.get(0).getName(),
+						rs.getInt("e1id"), rs.getString("etitle1"), rs.getInt("e2id"), rs.getString("etitle2"),
+						rs.getString("cname")));
+			}
 			// Durchschnittsbewertung laden
-			sql = ("SELECT AVG(r.rating) as average from rating r, rat_for_house rh WHERE rh.rid = r.rid and rh.hid = ")
+			sql = ("SELECT DOUBLE(AVG(r.rating)) as average from rating r, rat_for_house rh WHERE rh.rid = r.rid and rh.hid = ")
 					+ request.getParameter("hid");
 			ps = db2Conn.prepareStatement(sql);
 			rs = ps.executeQuery();
@@ -96,8 +92,8 @@ public final class DetailHausServlet extends HttpServlet {
 				bewertung.setAvgrating(rs.getDouble("average"));
 			}
 			// alle Bewertungen laden
-			sql = ("select name, rating, text from users, rat_for_house rh, rating r WHERE r.usid = users.usid and r.rid = rh.rid and rh.hid = ")
-					+ request.getParameter("hid");
+			sql = ("SELECT users.name, rating, text FROM users, rat_for_house rh, rating r "
+					+ "WHERE r.usid = users.usid and r.rid = rh.rid and rh.hid = ") + request.getParameter("hid");
 			ps = db2Conn.prepareStatement(sql);
 			rs = ps.executeQuery();
 			while (rs.next()) {
@@ -119,10 +115,6 @@ public final class DetailHausServlet extends HttpServlet {
 				}
 			}
 		}
-
-		////////////////////////////////////////////////////////////////////////
-		////////////////////////////////////////////////////////////////////////
-		////////////////////////////////////////////////////////////////////////
 
 		// freemarker variablen setzen
 		request.setAttribute("haus", haus);
@@ -146,40 +138,51 @@ public final class DetailHausServlet extends HttpServlet {
 
 			try {
 				db2Conn = DBUtil.getConnection("got");
-				
+
+				db2Conn.setAutoCommit(false);
 				// Checking if rating exists
-				String sql = ("Select count(rating.usid) as counter FROM rating, rat_for_house WHERE rating.usid = 1"
+				String sql = ("Select rating.usid as usidtest, rating.rid FROM rating, rat_for_house WHERE rating.usid = ?"
 						+ " and rating.rid = rat_for_house.rid and rat_for_house.hid = " + request.getParameter("hid"));
 				PreparedStatement ps = db2Conn.prepareStatement(sql);
+				ps.setInt(1, 21);
 				ResultSet rs = ps.executeQuery();
+				int ratingrid = -1;
 				while (rs.next()) {
-					System.out.println("UserID in Rating exists ? 0 = No; 1 = yes ; Result --> \t"+rs.getInt("counter"));
-					if (rs.getInt("counter") == 1) {
+					if (rs.getInt("usidtest") == 21) {
+						System.out.println("Userrating already exists. Now proceed to Update");
 						exists = true;
+						ratingrid = rs.getInt("usidtest");
 					}
 				}
 				if (exists) {
 					ps.close();
-					System.out.println("Bewertung update!");
-					sql = "UPDATE rating SET rating = " + request.getParameter("select_bewertung") + " WHERE usid = 1 ";
+					sql = "UPDATE rating SET rating = " + request.getParameter("select_bewertung")
+							+ ", text = ?"
+							+ " WHERE usid = ? and rating.rid = " + Integer.toString(ratingrid);
+					//Deny SQL Injection
 					ps = db2Conn.prepareStatement(sql);
+					ps.setString(1, request.getParameter("textarea_bewertung"));
+					ps.setInt(2, 21);
 					ps.executeUpdate();
+					db2Conn.commit();
+					System.out.println("Bewertung update!");
 				} else {
 					ps.close();
 					sql = "Insert into Rating (usid, rating, text) values (?,?,?)";
-					ps = db2Conn.prepareStatement(sql);
-					ps.setInt(1, 1);
+					ps = db2Conn.prepareStatement(sql, new String[] { "rid" });
+					ps.setInt(1, 21);
 					ps.setInt(2, Integer.parseInt(request.getParameter("select_bewertung")));
 					ps.setString(3, request.getParameter("textarea_bewertung"));
 					ps.executeUpdate();
+					db2Conn.commit();
 					// RID finden und im Rat_for_house einfügen
 					int rid = -1;
-					
+
 					ResultSet rs2 = ps.getGeneratedKeys();
-					while(rs2.next()){
+					while (rs2.next()) {
 						rid = rs2.getShort(1);
 					}
-					System.out.println("RID: " + rid);
+					System.out.println("New RID: " + rid);
 					ps.close();
 					sql = "Insert into rat_for_house (rid,hid) values (?,?)";
 					ps = db2Conn.prepareStatement(sql);
@@ -187,11 +190,8 @@ public final class DetailHausServlet extends HttpServlet {
 					ps.setInt(2, Integer.parseInt(request.getParameter("hid")));
 					ps.executeUpdate();
 					System.out.println("Bewertung eingefügt!");
+					db2Conn.commit();
 				}
-
-				System.out.println(
-						request.getParameter("textarea_bewertung") + "\t\t" + request.getParameter("select_bewertung"));
-				doGet(request, response);
 
 			} catch (SQLException e) {
 				try {

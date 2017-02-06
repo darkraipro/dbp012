@@ -49,7 +49,6 @@ public final class StartseiteServlet extends HttpServlet {
 		int anzahlTestStaffeln = 5;
 		try {
 			db2Conn = DBUtil.getConnection("got");
-
 			// Anzahl Figuren prüfen
 			sql = ("SELECT COUNT(characters.cid) as result " + "FROM characters");
 			ps = db2Conn.prepareStatement(sql);

@@ -46,6 +46,7 @@ body{
 		<br /><br /><br />
 		<hr>
 		<p>Bewertung abgeben:</p> 
+		<form method="post">
 		<select size="1" name="select_bewertung">
 			<option>0</option>
 			<option>1</option>
@@ -57,11 +58,23 @@ body{
 		<br />
 		<textarea rows="10" cols="50" name="textarea_bewertung"></textarea>
 		<br />
-		<button type="button" name="btn_bewerten">Bewerten</button>
+		<button type="submit" name="btn_bewerten">Bewerten</button>
+        </form>
 		<br /><br />
 		<hr>
+		
 		<h3>Alle Bewertungen:</h3><br />
-		<p>Durchschnittsbewertung: </p>
+		<table class="datatable">
+    <tr>
+        <th>Name</th>  <th>Bewertung</th>	<th>Kommentar</th>
+    </tr>
+    <#list listeBewertung as lb>
+    <tr>
+        <td>${lb.username}</td> <td>  <center> ${lb.rating}</center></td>	<td><center>${lb.text}</center></td>
+    </tr>
+    </#list>
+  </table>
+		<p>Durchschnittsbewertung: ${bewertung.avgrating}</p>
 		<br />
 	</div>
 	<div>

@@ -96,7 +96,7 @@ public final class DetailPersonServlet extends HttpServlet {
 				listeBesitzer.add(new Figur(rs.getInt("cid"), rs.getString("name")));
 			}
 			// Durchschnittsbewertung laden
-			sql = ("SELECT DOUBLE(AVG(r.rating)) as average from rating r, rat_for_char rc WHERE rc.rid = r.rid and re.cid = ")
+			sql = ("SELECT DOUBLE(AVG(r.rating)) as average from rating r, rat_for_char rc WHERE rc.rid = r.rid and rc.cid = ")
 					+ request.getParameter("cid");
 			ps = db2Conn.prepareStatement(sql);
 			rs = ps.executeQuery();

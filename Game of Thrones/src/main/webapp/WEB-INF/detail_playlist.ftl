@@ -41,7 +41,7 @@ body{
 		<h1>Playlist:</h1><br />
 		<p>Name: ${playlist.name}</p><br />
 		<p>Episoden:</p>
-			<#list playlistepisoden as pe><a href="detailepisode?eid=${pe.eid}">${pe.name}</a><br /></#list><br />
+			<#list playlistepisoden as pe><a href="detailepisode?eid=${pe.eid}">${pe.title}</a><br /></#list><br />
 		
 	</div>
 	<div>

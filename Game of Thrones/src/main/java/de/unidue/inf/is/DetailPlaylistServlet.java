@@ -57,12 +57,12 @@ public final class DetailPlaylistServlet extends HttpServlet {
 				playlist = new Playlist(Integer.parseInt(request.getParameter("plid")), rs.getString("name"));
 			}
 			//Episoden laden
-			sql = ("SELECT episodes.name, episodes.eid FROM episodes, playlist_contains_episode "
+			sql = ("SELECT episodes.title, episodes.eid FROM episodes, playlist_contains_episode "
 					+ "WHERE episodes.eid = playlist_contains_episode.eid AND playlist_contains_episode.plid = ")+request.getParameter("plid");
 			ps = db2Conn.prepareStatement(sql);
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				listeEpisoden.add(new Episode(rs.getInt("eid"), rs.getString("name")));
+				listeEpisoden.add(new Episode(rs.getInt("eid"), rs.getString("title")));
 			}
 		} catch (SQLException e) {e.printStackTrace();} 
 		finally {if (db2Conn != null) {try {db2Conn.close();} catch (SQLException e) {e.printStackTrace();}}}
@@ -74,6 +74,7 @@ public final class DetailPlaylistServlet extends HttpServlet {
         
         //freemarker variablen setzen
         request.setAttribute("playlist", playlist);
+        if(listeEpisoden.size()==0)listeEpisoden.add(new Episode(0," "));
         request.setAttribute("playlistepisoden", listeEpisoden);
     	
     	// Put the user list in request and let freemarker paint it.

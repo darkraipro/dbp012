@@ -42,7 +42,7 @@ body{
 	
 	<table class="datatable">
 		<tr>
-        <th>Staffel</th>  <th>Anzahl Episoden</th>	<th>Erstveröffentlichung</th>
+        <th>Staffel      </th>  <th>Episodenanzahl</th>    	<th>Erstveröffentlichung</th>
     	</tr>
     <#list season as seas>
     <tr>

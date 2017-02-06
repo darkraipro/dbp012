@@ -27,10 +27,10 @@ public class Mitglied {
 		 }
 
 	 public int getEpfromid() {
-		    return cid;
+		    return epfromid;
 		 }
 	 public int getEptoid() {
-		    return cid;
+		    return eptoid;
 		 }
 	 public String getHousename() {
 	    return housename;

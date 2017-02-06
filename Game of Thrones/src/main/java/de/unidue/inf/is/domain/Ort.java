@@ -1,5 +1,6 @@
 package de.unidue.inf.is.domain;
 
+
 public class Ort {
 	
 	 private int	lid;

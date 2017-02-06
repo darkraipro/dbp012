@@ -104,7 +104,7 @@ public final class StartseiteServlet extends HttpServlet {
 			}
 			
 			//Alle Playlisten laden
-			sql = ("SELECT plid, name FROM playlist");
+			sql = ("SELECT plid, name FROM playlist WHERE usid=1");
 			ps = db2Conn.prepareStatement(sql);
 			rs = ps.executeQuery();
 			while (rs.next()) {
@@ -194,6 +194,12 @@ public final class StartseiteServlet extends HttpServlet {
 				
 					db2Conn = DBUtil.getConnection("got");
 					
+					boolean legit2 = true;
+					for (String f : forbidden) {
+						if (textfeld.contains(f))
+							legit2 = false;
+					}
+					if(!legit2)response.sendRedirect(("/start"));
 					//Playlists laden
 					String sql = ("SELECT plid, name FROM playlist");
 					PreparedStatement ps = db2Conn.prepareStatement(sql);
@@ -211,14 +217,7 @@ public final class StartseiteServlet extends HttpServlet {
 					ps = db2Conn.prepareStatement(sql);
 					ps.executeUpdate();
 					
-					sql = ("SELECT COUNT(plid) as playlistanzahl FROM playlist");
-					ps = db2Conn.prepareStatement(sql);
-					rs = ps.executeQuery();
-					int lastPlaylist = 0;
-					while (rs.next()) {
-						lastPlaylist = rs.getInt("playlistanzahl");
-					}
-					response.sendRedirect("/detailplaylist?plid=" + lastPlaylist);
+					response.sendRedirect("/start");
 				
 				}catch (SQLException e) {e.printStackTrace();} 
 				finally {if (db2Conn != null) {try {db2Conn.close();} catch (SQLException e) {e.printStackTrace();}}}

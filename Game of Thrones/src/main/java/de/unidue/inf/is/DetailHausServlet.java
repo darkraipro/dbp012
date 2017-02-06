@@ -15,8 +15,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import de.unidue.inf.is.domain.Bewertung;
 import de.unidue.inf.is.domain.Gehört;
+import de.unidue.inf.is.domain.GehörtAn;
 import de.unidue.inf.is.domain.Haus;
 import de.unidue.inf.is.domain.Ort;
+import de.unidue.inf.is.domain.Person;
 import de.unidue.inf.is.utils.DBUtil;
 
 /**
@@ -33,6 +35,7 @@ public final class DetailHausServlet extends HttpServlet {
 		List<Haus> haus = new ArrayList<>();
 		List<Ort> sitz = new ArrayList<>();
 		List<Gehört> listeBesitz = new ArrayList<>();
+		List<GehörtAn> listePersonen = new ArrayList<>();
 		List<Bewertung> listeBewertung = new ArrayList<>();
 		Bewertung bewertung = new Bewertung();
 
@@ -72,6 +75,18 @@ public final class DetailHausServlet extends HttpServlet {
 						rs.getInt("e1id"), rs.getString("etitle1"), rs.getInt("e2id"), rs.getString("etitle2"),
 						rs.getString("lname")));
 			}
+			// Personen(Angehörige) laden
+						sql = ("SELECT characters.name as cname, characters.cid as cid, ep1.title as etitle1, ep2.title as etitle2, "
+								+ "ep1.eid as e1id, ep2.eid as e2id FROM characters, episodes as ep1, episodes as ep2, member_of "
+								+ "WHERE ep1.eid = member_of.episode_from AND ep2.eid = member_of.episode_to AND "
+								+ "member_of.pid = characters.cid AND member_of.hid = ") + request.getParameter("hid");
+						ps = db2Conn.prepareStatement(sql);
+						rs = ps.executeQuery();
+						while (rs.next()) {
+							listePersonen.add(new GehörtAn(rs.getInt("cid"), haus.get(0).getHid(), haus.get(0).getName(),
+									rs.getInt("e1id"), rs.getString("etitle1"), rs.getInt("e2id"), rs.getString("etitle2"),
+									rs.getString("cname")));
+						}
 			// Durchschnittsbewertung laden
 			sql = ("SELECT AVG(r.rating) as average from rating r, rat_for_house rh WHERE rh.rid = r.rid and rh.hid = ")
 					+ request.getParameter("hid");
@@ -113,6 +128,7 @@ public final class DetailHausServlet extends HttpServlet {
 		request.setAttribute("haus", haus);
 		request.setAttribute("haussitz", sitz);
 		request.setAttribute("hausbesitz", listeBesitz);
+		request.setAttribute("hauspersonen", listePersonen);
 		request.setAttribute("bewertung", bewertung);
 		request.setAttribute("listeBewertung", listeBewertung);
 

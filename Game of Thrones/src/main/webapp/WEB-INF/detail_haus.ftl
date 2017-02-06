@@ -49,6 +49,8 @@ body{
 		<a href="detailort?lid=${hs.lid}">${hs.name}</a><br /><br /></#list></br>
 		<p>Besitz(Orte):</p>
 			<#list hausbesitz as hb><a href="detailort?lid=${hb.lid}">${hb.locationname}</a> von <a href="detailepisode?eid=${hb.epfromid}">${hb.epfromtitle}</a> bis <a href="detailepisode?eid=${hb.eptoid}">${hb.eptotitle}</a> <br /></#list><br />
+		<p>Personen:</p>
+			<#list hauspersonen as hp><a href="detailperson?cid=${hp.cid}">${hp.charname}</a> von <a href="detailepisode?eid=${hp.epfromid}">${hp.epfromtitle}</a> bis <a href="detailepisode?eid=${hp.eptoid}">${hp.eptotitle}</a> <br /></#list><br />
 		<br /><br /><br />
 		<hr>
 		<p>Bewertung abgeben:</p> 

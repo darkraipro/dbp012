@@ -125,7 +125,7 @@ public final class DetailEpisodeServlet extends HttpServlet {
 				db2Conn.setAutoCommit(false);
 				// Checking if rating exists
 				String sql = ("Select rating.usid as usidtest, rating.rid as rarid FROM rating, rat_for_epi WHERE rating.usid = ?"
-						+ " and rating.rid = rat_for_epi.rid and rat_for_house.eid = " + request.getParameter("eid"));
+						+ " and rating.rid = rat_for_epi.rid and rat_for_epi.eid = " + request.getParameter("eid"));
 				PreparedStatement ps = db2Conn.prepareStatement(sql);
 				ps.setInt(1, 21);
 				ResultSet rs = ps.executeQuery();

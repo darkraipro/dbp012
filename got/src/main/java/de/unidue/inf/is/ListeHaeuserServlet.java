@@ -27,41 +27,30 @@ public final class ListeHaeuserServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// Put the user list in request and let freemarker paint it.
 		Haus haus;
-		Connection db2Conn = null;
-		houseList.clear();
-		//String out = "";
-		try {
-			db2Conn = DBUtil.getConnection("got");
+		try (Connection db2Conn = DBUtil.getConnection("got")) {
+			houseList.clear();
 			final String sql1 = "SELECT houses.name, words, seat, houses.hid, location.name as ort FROM houses, location WHERE houses.seat = location.lid";
-			PreparedStatement ps = db2Conn.prepareStatement(sql1);
-			ResultSet rs = ps.executeQuery();
-			//StringBuffer outb = new StringBuffer();
-			while(rs.next()){
-				String name = rs.getString("name");
-				String words = rs.getString("words");
-				String ort = rs.getString("ort");
-				int seat = rs.getInt("seat");
-				int hid = rs.getInt("hid");
-				haus = new Haus(hid, name, words, ort, seat);
-				houseList.add(haus);
-				//outb.append(name).append(" ").append(words).append(" ").append(seat).append("\n");
-		
-			}
-			//out = outb.toString();
-			//System.out.println(out);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			// Resourcen schließen
-			if (db2Conn != null) {
-				try {
-					db2Conn.close();
+			try (PreparedStatement ps = db2Conn.prepareStatement(sql1)) {
+				try (ResultSet rs = ps.executeQuery()) {
+					while (rs.next()) {
+						String name = rs.getString("name");
+						String words = rs.getString("words");
+						String ort = rs.getString("ort");
+						int seat = rs.getInt("seat");
+						int hid = rs.getInt("hid");
+						haus = new Haus(hid, name, words, ort, seat);
+						houseList.add(haus);
+
+					}
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 		request.setAttribute("haeuser", houseList);
 		request.getRequestDispatcher("liste_haeuser.ftl").forward(request, response);

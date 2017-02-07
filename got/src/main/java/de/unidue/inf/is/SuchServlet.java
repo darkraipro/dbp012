@@ -52,10 +52,18 @@ public final class SuchServlet extends HttpServlet {
 			
 			//FIGUR
 			if (!request.getParameter("suchef").isEmpty()) {
-				sql = ("SELECT characters.name, characters.cid FROM characters "
-						+ "WHERE characters.name LIKE '%"+request.getParameter("suchef")+"%' UNION SELECT characters.name, characters.cid FROM characters "
-						+ "WHERE LOWER(characters.name) LIKE '%"+request.getParameter("suchef")+"%'");
+				sql = "SELECT DISTINCT c.cid, c.name, p.pid, a.aid FROM characters c " 
+						+"LEFT JOIN person p ON c.cid = p.pid "
+						+"LEFT JOIN animal a ON c.cid = a.aid "
+						+"LEFT JOIN member_of mo ON c.cid = mo.pid "
+						+"LEFT JOIN houses h ON h.hid = mo.hid "
+						+"WHERE UPPER(c.name) LIKE ? "
+						+"OR UPPER (p.title) LIKE ? "
+						+"OR UPPER (h.name) LIKE ? ";
 				ps = db2Conn.prepareStatement(sql);
+				ps.setString(1, "%" + request.getParameter("suchef").toUpperCase() + "%");
+				ps.setString(2, "%" + request.getParameter("suchef").toUpperCase() + "%");
+				ps.setString(3, "%" + request.getParameter("suchef").toUpperCase() + "%");
 				rs = ps.executeQuery();
 				while (rs.next()) {
 						figuren.add(new Figur(rs.getInt("cid"), rs.getString("name")));

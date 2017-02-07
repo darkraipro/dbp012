@@ -40,6 +40,7 @@ body{
 		</div>
 		<h1>Person:</h1><br />
 		<p>Name: ${person.name}</p><br />
+		<p>Titel : ${person.title}</p><br />
 		Herkuntsort: <a href="detailort?lid=${herkunft.lid}">${herkunft.name}</a><br /><br />
 		<p>Biographie: ${person.bio}</p><br />
 		<p>Haeuser: </p>

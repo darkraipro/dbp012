@@ -201,7 +201,6 @@ public final class DetailHausServlet extends HttpServlet {
 						ps.setInt(2, Integer.parseInt(request.getParameter("select_bewertung")));
 						ps.setString(3, request.getParameter("textarea_bewertung"));
 						ps.executeUpdate();
-						db2Conn.commit();
 
 						// RID finden und im Rat_for_house einfügen
 						try (ResultSet rs2 = ps.getGeneratedKeys()) {

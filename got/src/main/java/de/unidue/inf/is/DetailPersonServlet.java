@@ -215,7 +215,6 @@ public final class DetailPersonServlet extends HttpServlet {
 						ps.setInt(2, Integer.parseInt(request.getParameter("select_bewertung")));
 						ps.setString(3, request.getParameter("textarea_bewertung"));
 						ps.executeUpdate();
-						db2Conn.commit();
 
 						try (ResultSet rs2 = ps.getGeneratedKeys()) {
 							while (rs2.next()) {

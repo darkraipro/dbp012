@@ -177,18 +177,22 @@ public final class StartseiteServlet extends HttpServlet {
 				List<Playlist> playlists = new ArrayList<>();
 
 				// Playlists laden
-				String sql = ("SELECT plid, name FROM playlist");
+				String sql = ("SELECT * FROM playlist WHERE EXISTS (SELECT * FROM playlist WHERE name = ?)");				
 				try (PreparedStatement ps = db2Conn.prepareStatement(sql)) {
+					ps.setString(1, textfeld);
 					try (ResultSet rs = ps.executeQuery()) {
 						while (rs.next()) {
-							playlists.add(new Playlist(rs.getInt("plid"), rs.getString("name")));
+							System.out.println("DOPPELTER EINTRAG");
+							response.sendRedirect("/start");
 						}
 						// Playlistnamen überprüfen
-						for (Playlist p : playlists) {
-							if (textfeld.equals(p.getName())) {
-								response.sendRedirect(("/start"));
-							}
-						}
+//						for (Playlist p : playlists) {
+//							System.out.println("Neue: -"+ textfeld +"-, Alte: -"+ p.getName()+"-");
+//							String wert = p.getName();
+//							if (textfeld.equals(wert)) {
+//								
+//							}
+//						}
 					} catch (SQLException e) {
 						e.printStackTrace();
 					}
